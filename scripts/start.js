@@ -39,7 +39,7 @@ function getParams(ipStr) {
             arr.push(item);
         }
     }
-    arr.push(`--env.openurl=${ipStr}pc.html`);
+    arr.push(`--env.openurl=${ipStr}home.html`);
     return arr.join(' ');
 }
 
