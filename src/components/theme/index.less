@@ -1,0 +1,65 @@
+@theme-namespace:start-web-root;
+
+@theme_background: #f2f3f4;
+@theme_color:#1890ff;
+
+@theme_color_9:tint(@theme_color, 90%);
+@theme_color_8:tint(@theme_color, 80%);
+@theme_color_7:tint(@theme_color, 70%);
+@theme_color_6:tint(@theme_color, 60%);
+@theme_color_5:tint(@theme_color, 50%);
+@theme_color_4:tint(@theme_color, 40%);
+@theme_color_3:tint(@theme_color, 30%);
+@theme_color_2:tint(@theme_color, 20%);
+@theme_color_1:tint(@theme_color, 10%);
+@theme_hover_background:@theme_color_9;
+@theme_hover_color:@theme_text_color;
+@theme_selected_background:@theme_color;
+@theme_selected_color:@theme_color;
+@theme_disable_color:#e1e1e1;
+@theme_text_color:#333;
+@theme_disable_text_color:rgb(119, 119, 119);
+@theme_fontsize_sm:12px;
+@theme_fontsize_default:13px;
+@theme_fontsize_lg:14px;
+@theme_default_height:30px;
+@theme_lg_height:36px;
+@theme_sm_height:24px;
+@theme_borderradius:3px;
+
+@placeholder:gray;
+
+.@{theme-namespace}{
+    .theme-background{
+        background-color:@theme_color;
+    }
+    .theme-background-1{
+        background-color:@theme_color_1;
+    }
+    .theme-background-2{
+        background-color:@theme_color_2;
+    }
+    .theme-background-3{
+        background-color:@theme_color_3;
+    }
+    .theme-background-4{
+        background-color:@theme_color_4;
+    }
+    .theme-background-5{
+        background-color:@theme_color_5;
+    }
+    .theme-background-6{
+        background-color:@theme_color_6;
+    }
+    .theme-background-7{
+        background-color:@theme_color_7;
+    }
+    .theme-background-8{
+        background-color:@theme_color_8;
+    }
+    .theme-background-9{
+        background-color:@theme_color_9;
+    }
+}
+
+
