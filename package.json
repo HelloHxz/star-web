@@ -8,7 +8,9 @@
     "start": "node ./scripts/start.js --env.env=development",
     "start-uat": "node ./scripts/start.js --env.env=uat",
     "start-pro": "node ./scripts/start.js --env.env=production",
-    "build": "webpack -p --progress --config  webpack.config.js --env.action=build",
+    "build": "webpack -p --progress --config  webpack.config.js --env.action=build --env.env=development",
+    "build-uat": "webpack -p --progress --config  webpack.config.js --env.action=build --env.env=uat",
+    "build-pro": "webpack -p --progress --config  webpack.config.js --env.action=build --env.env=production",
     "lint": "eslint --ext .js src",
     "precommit": "npm run lint",
     "fix": "eslint --fix --ext .js src"
@@ -26,6 +28,7 @@
     "autoprefixer": "^9.4.7",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-polyfill": "^6.26.0",
     "css-loader": "^2.1.0",
     "eslint": "^5.14.0",
