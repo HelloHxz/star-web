@@ -2,56 +2,22 @@
 const path = require('path');
 const webpack = require('webpack');
 const fs = require('fs');
+const utils = require('./scripts/utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
-
-const rmdirSync = (function () {
-  function iterator(url, dirs) {
-    const stat = fs.statSync(url);
-    if (stat.isDirectory()) {
-      dirs.unshift(url); // 收集目录
-      inner(url, dirs);
-    } else if (stat.isFile()) {
-      fs.unlinkSync(url); // 直接删除文件
-    }
-  }
-  function inner(path, dirs) {
-    const arr = fs.readdirSync(path);
-    for (var i = 0,
-      el; el = arr[i++];) {
-      iterator(`${path}/${el}`, dirs);
-    }
-  }
-  return function (dir, cb) {
-    cb = cb
-    || function () {};
-    const dirs = [];
-
-    try {
-      iterator(dir, dirs);
-      for (var i = 0,
-        el; el = dirs[i++];) {
-        fs.rmdirSync(el); // 一次性删除所有收集到的目录
-      }
-      cb();
-    } catch (e) { // 如果文件或目录本来就不存在，fs.statSync会报错，不过我们还是当成没有异常发生
-      e.code === 'ENOENT' ? cb() : cb(e);
-    }
-  };
-}());
 
 module.exports = function start(env) {
   const appList = ['home'];
   const nodeEnv = env.env || 'development';
+  const distOutPutPath = path.resolve(__dirname, `dist/${nodeEnv}`);
   const action = env.action || 'start';
-  // new webpack.DefinePlugin(defineValue),
   const isBuild = action === 'build';
   const entryAndHtmlPlugin = getEntryAndHtmlPlugin(appList, isBuild);
   let plugins = [];
   plugins = plugins.concat(entryAndHtmlPlugin.htmlplugins);
 
   if (isBuild) {
-    rmdirSync('./dist');
+    utils.rmdirSync(distOutPutPath);
   } else {
     const openurl = env.openurl || '';
     if (openurl.length > 0) {
@@ -70,7 +36,7 @@ module.exports = function start(env) {
     output: {
       filename: '[name].[hash:8].js',
       chunkFilename: !isBuild ? '[name].bundle.js' : '[name].[chunkhash:8].min.js',
-      path: path.resolve(__dirname, 'dist'),
+      path: distOutPutPath,
       publicPath: './',
     },
 
@@ -84,7 +50,6 @@ module.exports = function start(env) {
     devtool: isBuild ? 'cheap-module-source-map' : '#source-map',
     devServer: {
       hot: true,
-      contentBase: path.resolve(__dirname, 'dist'),
       publicPath: '/',
       // 支持historyState
       // historyApiFallback:true ???
