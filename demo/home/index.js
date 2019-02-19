@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Button, Input } from 'star-web';
 import './index.less';
-import Config from './config';
-import Button from '../../src/components/button';
-import Input from '../../src/components/input';
+// import Config from './config';
 
 const pageFactory = {};
 // 只是遍历二级目录
@@ -22,7 +21,7 @@ const Index = () => {
     <div>
       <Button />
       <Input />
-      {Config.title}
+      {/* {Config.title} */}
     </div>
   );
 };

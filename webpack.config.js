@@ -59,7 +59,9 @@ module.exports = function start(env) {
     },
     resolve: {
       extensions: extensions,
-      modules: [path.resolve(__dirname, 'demo'), path.resolve(__dirname, 'src'), 'node_modules'],
+      alias: {
+        "star-web": path.resolve(__dirname, './'),
+      },
     },
     module: {
       rules: [{
@@ -68,7 +70,11 @@ module.exports = function start(env) {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['transform-class-properties', 'syntax-dynamic-import'],
+            plugins: [
+              'transform-class-properties',
+              'syntax-dynamic-import',
+              ["import", { "libraryName": "star-web", "libraryDirectory": "src/components"}]
+            ],
           },
         },
       },
