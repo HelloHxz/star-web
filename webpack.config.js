@@ -3,10 +3,12 @@ const path = require('path');
 const webpack = require('webpack');
 const fs = require('fs');
 const utils = require('./scripts/utils');
+const createTheme = require('./scripts/theme');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = function start(env) {
+  createTheme();
   const appList = ['home'];
   const nodeEnv = env.env || 'development';
   const distOutPutPath = path.resolve(__dirname, `dist/${nodeEnv}`);
@@ -27,7 +29,7 @@ module.exports = function start(env) {
   }
 
   // DefinePlugin的一种开发变量注入的替代方案 编译时不同环境加在不同代码文件的方案
-  const extensions =  ['.js', `.${nodeEnv}.js`, '.json'];
+  const extensions =  ['.js', `.${nodeEnv}.js`];
 
   return {
     context: path.resolve(__dirname, 'demo'),
