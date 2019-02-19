@@ -22,13 +22,13 @@ function createTheme(){
     if(isFile(LessPath)){
       var data = fs.readFileSync(LessPath, 'utf8');
       if(folder!=='theme'){
-        LessArr.push(data.replace("@import '../theme/index.less';",''));
+        LessArr.push(data.replace("@import '~star-web/theme/index.less';",''));
       }else{
         DefaultTheme = data;
       }
     }
   }
-  const allLessPath = path.join('./', '/all.less');
+  const allLessPath = path.join('./', '/theme/all.less');
   if(isFile(allLessPath)){
       fs.unlinkSync(allLessPath);
   }
