@@ -33,7 +33,7 @@ function createTheme(){
       fs.unlinkSync(allLessPath);
   }
   fs.writeFileSync(allLessPath,LessArr.join(' '));
-  console.log(">>>>>>>>>>>>>总样式文件写入完成！>>>>>>>>>>>>>");
+  console.log(">>>>>>>>>>>>> 总样式文件写入完成! <<<<<<<<<<<<<<<<<<<");
 }
 module.exports = createTheme;
 

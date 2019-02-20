@@ -6,9 +6,11 @@ const createTheme = require('./scripts/theme');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
+
+const appList = ['home'];
+
 module.exports = function start(env) {
   createTheme();
-  const appList = ['home'];
   const nodeEnv = env.env || 'development';
   const distOutPutPath = path.resolve(__dirname, `dist/${nodeEnv}`);
   const action = env.action || 'start';
@@ -158,4 +160,6 @@ function getEntryAndHtmlPlugin(siteArr) {
   }
   return re;
 }
+
+module.exports.appList = appList;
 

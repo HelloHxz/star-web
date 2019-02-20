@@ -1,4 +1,6 @@
 /* eslint-disable */
+const webpackConfig = require('../webpack.config');
+
 var shell = require('shelljs');
 
 function getIPAdress(){
@@ -39,7 +41,7 @@ function getParams(ipStr) {
             arr.push(item);
         }
     }
-    arr.push(`--env.openurl=${ipStr}home.html`);
+    arr.push(`--env.openurl=${ipStr}${webpackConfig.appList[0]}.html`);
     return arr.join(' ');
 }
 
