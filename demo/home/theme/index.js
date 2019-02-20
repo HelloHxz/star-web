@@ -3,6 +3,12 @@ import React from 'react';
 
 const Themes = [
   {
+    key: 'star-web-theme',
+    name: '蓝',
+    Theme: null,
+    color: '#1890ff',
+  },
+  {
     key: 'theme_a',
     name: '红',
     Theme: () => { return import(/* webpackChunkName: "theme_a" */ './theme_a.less'); },
@@ -18,11 +24,15 @@ const Themes = [
 
 export default class ThemeBlocks extends React.Component {
   themeChange = (data) => {
-    data.Theme().then(() => {
-      document.documentElement.className = data.key;
-    }).catch(() => {
-
-    });
+    const rootWrapper = document.getElementById('star-root-id');
+    if (data.Theme) {
+      data.Theme().then(() => {
+        rootWrapper.className = data.key;
+      }).catch(() => {
+      });
+    } else {
+      rootWrapper.className = data.key;
+    }
   }
 
   render() {
