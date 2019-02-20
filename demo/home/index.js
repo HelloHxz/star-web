@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Input } from 'star-web';
 import './index.less';
+import ThemeBlocks from './theme';
 import Config from './config';
 
 // const pageFactory = {};
@@ -21,6 +22,7 @@ const Index = () => {
   return (
     <div>
       <h1>{Config.title}</h1>
+      <ThemeBlocks />
       <Button />
       <Input />
     </div>
