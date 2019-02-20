@@ -3,21 +3,21 @@ import React from 'react';
 
 const Themes = [
   {
-    key: 'star-web-theme',
-    name: '蓝',
+    namespace: 'star-web-theme',
+    title: '蓝',
     Theme: null,
     color: '#1890ff',
   },
   {
-    key: 'theme_a',
-    name: '红',
-    Theme: () => { return import(/* webpackChunkName: "theme_a" */ './theme_a.less'); },
+    namespace: 'theme_a',
+    title: '红',
+    Theme: () => { return import('./theme_a.less'); },
     color: '#e64343',
   },
   {
-    key: 'theme_b',
-    name: 'b站粉',
-    Theme: () => { return import(/* webpackChunkName: "theme_b" */ './theme_b.less'); },
+    namespace: 'theme_b',
+    title: 'b站粉',
+    Theme: () => { return import('./theme_b.less'); },
     color: '#f25d8e',
   },
 ];
@@ -27,11 +27,11 @@ export default class ThemeBlocks extends React.Component {
     const rootWrapper = document.getElementById('star-root-id');
     if (data.Theme) {
       data.Theme().then(() => {
-        rootWrapper.className = data.key;
+        rootWrapper.className = data.namespace;
       }).catch(() => {
       });
     } else {
-      rootWrapper.className = data.key;
+      rootWrapper.className = data.namespace;
     }
   }
 
@@ -40,8 +40,9 @@ export default class ThemeBlocks extends React.Component {
     for (let i = 0, j = Themes.length; i < j; i += 1) {
       const item = Themes[i];
       themeBlocks.push(<div
-        key={item.key}
+        key={item.namespace}
         onClick={this.themeChange.bind(this, item)}
+        title={item.title}
         style={{
           cursor: 'pointer',
           backgroundColor: item.color,
