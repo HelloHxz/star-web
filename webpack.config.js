@@ -1,7 +1,6 @@
 /* eslint-disable */
 const path = require('path');
 const webpack = require('webpack');
-const fs = require('fs');
 const utils = require('./scripts/utils');
 const createTheme = require('./scripts/theme');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -48,6 +47,7 @@ module.exports = function start(env) {
 
     watchOptions: {
       poll: true,
+      ignored: /node_modules/,
     },
     devtool: isBuild ? 'cheap-module-source-map' : '#source-map',
     devServer: {

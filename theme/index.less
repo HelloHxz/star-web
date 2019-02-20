@@ -1,6 +1,5 @@
 @theme-namespace:start-web-root;
 
-@theme_background: #f2f3f4;
 @theme_color:#1890ff;
 
 @theme_color_9:tint(@theme_color, 90%);
@@ -12,20 +11,24 @@
 @theme_color_3:tint(@theme_color, 30%);
 @theme_color_2:tint(@theme_color, 20%);
 @theme_color_1:tint(@theme_color, 10%);
-@theme_hover_background:@theme_color_9;
-@theme_hover_color:@theme_text_color;
-@theme_selected_background:@theme_color;
-@theme_selected_color:@theme_color;
-@theme_disable_color:#e1e1e1;
-@theme_text_color:#333;
-@theme_disable_text_color:rgb(119, 119, 119);
+
+@theme_color_hover:@theme_color_text;
+@theme_color_selected:@theme_color;
+@theme_color_disable:#e1e1e1;
+@theme_color_text:#333;
+@theme_color_disable_text:rgb(119, 119, 119);
+
+@theme_background: #f2f3f4;
+@theme_background_hover:@theme_color_9;
+@theme_background_selected:@theme_color;
+
 @theme_fontsize_sm:12px;
 @theme_fontsize_default:13px;
 @theme_fontsize_lg:14px;
-@theme_default_height:30px;
-@theme_lg_height:36px;
-@theme_sm_height:24px;
-@theme_borderradius:3px;
+@theme_height_default:30px;
+@theme_height_lg:36px;
+@theme_height_sm:24px;
+@theme_border_radius:3px;
 
 @placeholder:gray;
 
