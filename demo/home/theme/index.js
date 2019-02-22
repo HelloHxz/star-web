@@ -46,9 +46,9 @@ export default class ThemeBlocks extends React.Component {
         style={{
           cursor: 'pointer',
           backgroundColor: item.color,
-          marginRight: 20,
-          width: 30,
-          height: 30,
+          marginRight: 16,
+          width: 26,
+          height: 26,
           display: 'inline-block',
         }}
       />);

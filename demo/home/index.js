@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Input } from 'star-web';
+import {
+  Button, Input, Router, Launch,
+} from 'star-web';
 import './index.less';
 import ThemeBlocks from './theme';
 import Config from './config';
@@ -18,16 +20,36 @@ import Config from './config';
 //   pageFactory[pageName] = context(pagePath).default;
 // }
 
+// const router = {
+//   home: require('./demo/home/pages/home/page.js'),
+//   'other/:id': require('./demo/home/pages/home/page.js'),
+//   'page1/:id?': require('./demo/home/pages/home/page.js'),
+// };
+
 const Index = () => {
   return (
     <div>
-      <h1>{Config.title}</h1>
+      <Router />
+      <h1>
+        {Config.title}
+      </h1>
       <ThemeBlocks />
       <Button />
       <Input />
+      <div
+        className="test-theme-background"
+        style={{ height: 30 }}
+      />
     </div>
   );
 };
+
+
+// Launch({
+//   root: document.getElementById('star-root-id'),
+//   pages: {
+//   },
+// });
 
 
 ReactDOM.render(<Index />, document.getElementById('star-root-id'));

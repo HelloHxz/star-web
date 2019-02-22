@@ -8,6 +8,7 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 
 const appList = ['home'];
+const routerType = 'hash'; // hash || history
 
 module.exports = function start(env) {
   createTheme();
@@ -30,7 +31,7 @@ module.exports = function start(env) {
   }
 
   // DefinePlugin的一种开发变量注入的替代方案 编译时不同环境加在不同代码文件的方案
-  const extensions =  ['.js', `.${nodeEnv}.js`];
+  const extensions =  ['.js', `.${nodeEnv}.js`, `.${routerType}.js`];
 
   return {
     context: path.resolve(__dirname, 'demo'),
