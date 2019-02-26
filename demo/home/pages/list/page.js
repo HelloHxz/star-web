@@ -1,13 +1,13 @@
 import React from 'react';
 import './index.less';
 
-class Page2 extends React.Component {
+class ListPage extends React.Component {
   componentDidMount = () => {
   }
 
   render() {
-    return (<div>Page2</div>);
+    return (<div>List</div>);
   }
 }
 
-export default Page2;
+export default ListPage;
