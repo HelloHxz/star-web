@@ -29,7 +29,7 @@ module.exports = function start(env) {
   }
 
   // DefinePlugin的一种开发变量注入的替代方案 编译时不同环境加在不同代码文件的方案
-  const extensions =  ['.js', `.${nodeEnv}.js`, `.${routerType}.js`];
+  const extensions =  [`.${nodeEnv}.js`, `.${routerType}.js`, '.js'];
 
   return {
     context: path.resolve(__dirname, 'demo'),
