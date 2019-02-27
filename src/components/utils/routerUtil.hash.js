@@ -10,8 +10,8 @@ class HashRouterUtil {
   match = () => {
     return {
       path: this.getPathFromUrl(),
-      query: this.getParamsFromUrl() || {},
-      queryStr: this.getParamsStrFromUrl() || '',
+      query: this.getQueryFromUrl() || {},
+      queryStr: this.getQueryStringFromUrl() || '',
     };
   }
 
@@ -25,7 +25,7 @@ class HashRouterUtil {
     return sArr[0] || '';
   }
 
-  getParamsStrFromUrl = () => {
+  getQueryStringFromUrl = () => {
     const Arr = window.location.href.split('?');
     if (Arr.length < 2) {
       return null;
@@ -35,8 +35,8 @@ class HashRouterUtil {
     return strArr[0];
   }
 
-  getParamsFromUrl = () => {
-    const paraStr = this.getParamsStrFromUrl();
+  getQueryFromUrl = () => {
+    const paraStr = this.getQueryStringFromUrl();
     if (!paraStr) {
       return null;
     }

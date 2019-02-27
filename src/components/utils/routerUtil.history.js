@@ -10,8 +10,8 @@ class HistoryRouterUtil {
   match = () => {
     return {
       path: this.getPathFromUrl(),
-      query: this.getParamsFromUrl() || {},
-      queryStr: this.getParamsStrFromUrl() || '',
+      query: this.getQueryFromUrl() || {},
+      queryStr: this.getQueryStringFromUrl() || '',
     };
   }
 
@@ -29,7 +29,7 @@ class HistoryRouterUtil {
     return path;
   }
 
-  getParamsStrFromUrl = () => {
+  getQueryStringFromUrl = () => {
     const Arr = window.location.href.split('?');
     if (Arr.length < 2) {
       return null;
@@ -39,8 +39,8 @@ class HistoryRouterUtil {
     return strArr[0];
   }
 
-  getParamsFromUrl = () => {
-    const paraStr = this.getParamsStrFromUrl();
+  getQueryFromUrl = () => {
+    const paraStr = this.getQueryStringFromUrl();
     if (!paraStr) {
       return null;
     }
@@ -74,11 +74,10 @@ class HistoryRouterUtil {
         console.warn(`url 传参 ${key} 不是字符串类型或数字`);
       }
     }
-    let hash = `#${_path}`;
     if (paramsArr.length > 0) {
-      hash = `${hash}?${paramsArr.join('&')}`;
+      _path = `${_path}?${paramsArr.join('&')}`;
     }
-    return hash;
+    return `${window.location.href.split('.html')[0]}.html/${_path}`;
   }
 }
 

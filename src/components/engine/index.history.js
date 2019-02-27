@@ -23,9 +23,9 @@ class Engine extends React.Component {
     };
   }
 
-  go = (path) => {
+  go = (path, params) => {
     // todo isSamePath And Params return
-    window.history.pushState({}, '', `${window.location.href.split('.html')[0]}.html/${path}`);
+    window.history.pushState({}, '', RouterUtil.combinePathAndParams(path, params));
     setTimeout(() => {
       this.setState({
         path: RouterUtil.getPathFromUrl(),
