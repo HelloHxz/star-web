@@ -1,6 +1,6 @@
 import React from 'react';
 
-class HashRouter extends React.Component {
+class Router extends React.Component {
   constructor(props) {
     super(props);
     this.init();
@@ -26,4 +26,4 @@ class HashRouter extends React.Component {
   }
 }
 
-export default HashRouter;
+export default Router;

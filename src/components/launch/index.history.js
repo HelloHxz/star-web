@@ -24,7 +24,13 @@ class Entry extends React.Component {
   }
 
   go = (path) => {
+    // todo isSamePath And Params return
     window.history.pushState({}, '', `${window.location.href.split('.html')[0]}.html/${path}`);
+    setTimeout(() => {
+      this.setState({
+        path: RouterUtil.getPathFromUrl(),
+      });
+    }, 10);
   }
 
   render() {

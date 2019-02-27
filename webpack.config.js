@@ -6,7 +6,6 @@ const createTheme = require('./scripts/theme');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
-
 const appList = ['home'];
 module.exports = function start(env) {
   createTheme();

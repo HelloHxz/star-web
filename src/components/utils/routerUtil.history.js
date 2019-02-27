@@ -1,4 +1,4 @@
-class RouterUtil {
+class HistoryRouterUtil {
   constructor() {
     this.routerCore = null;
   }
@@ -82,4 +82,4 @@ class RouterUtil {
   }
 }
 
-export default new RouterUtil();
+export default new HistoryRouterUtil();
