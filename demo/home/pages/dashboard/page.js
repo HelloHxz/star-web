@@ -1,10 +1,10 @@
 import React from 'react';
-import { Router } from 'star-web';
+import { Router, Utils } from 'star-web';
 import ThemeBlocks from '../../theme';
 
 class Home extends React.Component {
   go = () => {
-    window.location.hash = '#dashboard/other?es=asd';
+    Utils.router.go('dashboard/other', { id: 12, url: 'http://www.xx.com/23/12?params=参数&p=1', name: '参数?#@' });
   }
 
   render() {

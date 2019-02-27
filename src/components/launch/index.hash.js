@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from '../router';
+import RouterUtil from '../utils/routerUtil';
 
 class Entry extends React.Component {
   constructor(props) {
     super(props);
+    RouterUtil.routerCore = this;
     this.defaultPath = 'dashboard/list';
     this.state = {
       path: this.defaultPath,
@@ -22,6 +24,24 @@ class Entry extends React.Component {
     };
   }
 
+  go = (path, params) => {
+    let _path = path || '';
+    if (_path.indexOf('#') === 0) {
+      _path = _path.substring(1);
+    }
+    const paramsArr = [];
+    const _params = params || {};
+    // eslint-disable-next-line
+    for (const key in _params) {
+      paramsArr.push(`${key}=${encodeURIComponent(_params[key])}`);
+    }
+    let hash = `#${_path}`;
+    if (paramsArr.length > 0) {
+      hash = `${hash}?${paramsArr.join('&')}`;
+    }
+    window.location.hash = hash;
+  }
+
   render() {
     const { config } = this.props;
     const { path } = this.state;
@@ -31,6 +51,6 @@ class Entry extends React.Component {
   }
 }
 
-export default (config) => {
-  ReactDOM.render(<Entry config={config} />, config.root || document.body);
+export default (config, rootDom) => {
+  ReactDOM.render(<Entry config={config} />, rootDom || document.body);
 };

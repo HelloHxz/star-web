@@ -23,10 +23,10 @@ import './index.less';
 // };
 
 Launch({
-  root: document.getElementById('star-root-id'),
+  root: 'dashboard/list',
   pages: {
     dashboard: require('./pages/dashboard/page.js').default,
     list: require('./pages/list/page.js').default,
     other: require('./pages/other/page.js').default,
   },
-});
+}, document.getElementById('star-root-id'));

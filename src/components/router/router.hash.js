@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class HashRouter extends React.Component {
+class HashRouter extends React.Component {
   constructor(props) {
     super(props);
     this.init();
@@ -22,6 +22,8 @@ export default class HashRouter extends React.Component {
   render() {
     const { config } = this.props;
     const PageInfo = this.getCurPageClass();
-    return (<div><PageInfo.Component config={config} path={PageInfo.path} /></div>);
+    return (<PageInfo.Component config={config} path={PageInfo.path} />);
   }
 }
+
+export default HashRouter;
