@@ -28,5 +28,6 @@ Launch({
     dashboard: require('./pages/dashboard/page.js').default,
     list: require('./pages/list/page.js').default,
     other: require('./pages/other/page.js').default,
+    page1: require('./pages/page1/page.js').default,
   },
 }, document.getElementById('star-root-id'));

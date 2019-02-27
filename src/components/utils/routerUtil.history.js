@@ -16,13 +16,17 @@ class RouterUtil {
   }
 
   getPathFromUrl = () => {
-    const nameArr = window.location.hash.split('#');
+    const nameArr = window.location.pathname.split('html');
     const s = nameArr[1];
     if (!s) {
       return this.config.root || '';
     }
     const sArr = s.split('?');
-    return sArr[0] || '';
+    let path = sArr[0] || '';
+    if (path.indexOf('/') === 0) {
+      path = path.substring(1);
+    }
+    return path;
   }
 
   getParamsStrFromUrl = () => {

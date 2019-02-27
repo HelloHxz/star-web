@@ -6,47 +6,32 @@ import RouterUtil from '../utils/routerUtil';
 class Entry extends React.Component {
   constructor(props) {
     super(props);
+    const { config } = props;
     RouterUtil.routerCore = this;
-    this.defaultPath = 'dashboard/list';
+    RouterUtil.config = config;
     this.state = {
-      path: this.defaultPath,
+      path: RouterUtil.getPathFromUrl(),
     };
     this.init();
   }
 
   init = () => {
     window.onhashchange = () => {
-      const hash = window.location.hash.split('?')[0];
       this.setState({
-        path: hash.substring(1).length === 0
-          ? this.defaultPath : hash.substring(1),
+        path: RouterUtil.getPathFromUrl(),
       });
     };
   }
 
   go = (path, params) => {
-    let _path = path || '';
-    if (_path.indexOf('#') === 0) {
-      _path = _path.substring(1);
-    }
-    const paramsArr = [];
-    const _params = params || {};
-    // eslint-disable-next-line
-    for (const key in _params) {
-      paramsArr.push(`${key}=${encodeURIComponent(_params[key])}`);
-    }
-    let hash = `#${_path}`;
-    if (paramsArr.length > 0) {
-      hash = `${hash}?${paramsArr.join('&')}`;
-    }
-    window.location.hash = hash;
+    window.location.hash = RouterUtil.combinePathAndParams(path, params);
   }
 
   render() {
     const { config } = this.props;
     const { path } = this.state;
     return (
-      <Router path={path} config={config} params="" />
+      <Router path={path} config={config} />
     );
   }
 }

@@ -8,13 +8,12 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 
 const appList = ['home'];
-const routerType = 'hash'; // hash || history
-
 module.exports = function start(env) {
   createTheme();
   const nodeEnv = env.env || 'development';
   const distOutPutPath = path.resolve(__dirname, `dist/${nodeEnv}`);
   const action = env.action || 'start';
+  const routerType = env.routertype || 'hash'; // hash || history
   const isBuild = action === 'build';
   const entryAndHtmlPlugin = getEntryAndHtmlPlugin(appList, isBuild);
   let plugins = [];
@@ -41,7 +40,7 @@ module.exports = function start(env) {
       filename: '[name].[hash:8].js',
       chunkFilename: !isBuild ? '[name].bundle.js' : '[name].[chunkhash:8].min.js',
       path: distOutPutPath,
-      publicPath: './',
+      publicPath: routerType === 'history' ? '/' : './',
     },
 
     performance: {
@@ -56,11 +55,9 @@ module.exports = function start(env) {
     devServer: {
       hot: true,
       publicPath: '/',
-      // 支持historyState
-      // historyApiFallback:true ???
-      // historyApiFallback: {
-      //   index: isBuild ? './': '/' + appList[0] + '.html',
-      // },
+      historyApiFallback: {
+        index:'/'+appList[0]+'.html',
+      },
     },
     resolve: {
       extensions: extensions,
