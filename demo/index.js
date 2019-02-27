@@ -2,7 +2,6 @@ import {
   Engine,
 } from 'star-web';
 import './index.less';
-
 // const pageFactory = {};
 // // 只是遍历二级目录
 // const context = require.context('./pages', true, /^\.\/\w*\/page.js$/);

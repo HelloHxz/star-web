@@ -6,7 +6,6 @@ const createTheme = require('./scripts/theme');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
-const appList = ['home'];
 module.exports = function start(env) {
   createTheme();
   const nodeEnv = env.env || 'development';
@@ -14,9 +13,16 @@ module.exports = function start(env) {
   const action = env.action || 'start';
   const routerType = env.routertype || 'hash'; // hash || history
   const isBuild = action === 'build';
-  const entryAndHtmlPlugin = getEntryAndHtmlPlugin(appList, isBuild);
-  let plugins = [];
-  plugins = plugins.concat(entryAndHtmlPlugin.htmlplugins);
+  // DefinePlugin的一种开发变量注入的替代方案 编译时不同环境加在不同代码文件的方案
+  const extensions =  [`.${nodeEnv}.js`, `.${routerType}.js`, '.js'];
+
+  let plugins = [new HtmlWebpackPlugin({
+    filename: `index.html`,
+    template: `./index.html`,
+    inject: 'body',
+    chunks: ['index'],
+    hash: true,
+  })];
 
   if (isBuild) {
     utils.rmdirSync(distOutPutPath);
@@ -28,13 +34,12 @@ module.exports = function start(env) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
   }
 
-  // DefinePlugin的一种开发变量注入的替代方案 编译时不同环境加在不同代码文件的方案
-  const extensions =  [`.${nodeEnv}.js`, `.${routerType}.js`, '.js'];
-
   return {
     context: path.resolve(__dirname, 'demo'),
     mode: ['development', 'production', 'none'].indexOf(nodeEnv) < 0 ? 'development' : nodeEnv,
-    entry: entryAndHtmlPlugin.entry,
+    entry: {
+      index: ['babel-polyfill', './index.js'],
+    },
     output: {
       filename: '[name].[hash:8].js',
       chunkFilename: !isBuild ? '[name].bundle.js' : '[name].[chunkhash:8].min.js',
@@ -54,9 +59,7 @@ module.exports = function start(env) {
     devServer: {
       hot: true,
       publicPath: '/',
-      historyApiFallback: {
-        index:'/'+appList[0]+'.html',
-      },
+      historyApiFallback: true,
     },
     resolve: {
       extensions: extensions,
@@ -137,26 +140,3 @@ module.exports = function start(env) {
     plugins,
   };
 };
-
-
-function getEntryAndHtmlPlugin(siteArr) {
-  const re = {
-    entry: {},
-    htmlplugins: [],
-  };
-  for (let i = 0, j = siteArr.length; i < j; i += 1) {
-    const siteName = siteArr[i];
-    re.entry[siteName] = ['babel-polyfill', `./${siteName}/index.js`]; // js多入口字典对象
-    re.htmlplugins.push(new HtmlWebpackPlugin({
-      filename: `${siteName}.html`,
-      template: `./${siteName}/index.html`,
-      inject: 'body',
-      chunks: [siteName],
-      hash: true,
-    }));
-  }
-  return re;
-}
-
-module.exports.appList = appList;
-

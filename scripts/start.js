@@ -1,5 +1,4 @@
 /* eslint-disable */
-const webpackConfig = require('../webpack.config');
 const shell = require('shelljs');
 const net = require('net');
 
@@ -39,7 +38,7 @@ function getParams(ipStr) {
       arr.push(item);
     }
   }
-  arr.push(`--env.openurl=${ipStr}${webpackConfig.appList[0]}.html`);
+  arr.push(`--env.openurl=${ipStr}index.html`);
   return arr.join(' ');
 }
 
