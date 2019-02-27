@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Router from '../router';
 import RouterUtil from '../utils/routerUtil';
 
-class Entry extends React.Component {
+class Engine extends React.Component {
   constructor(props) {
     super(props);
     const { config } = props;
@@ -16,15 +16,21 @@ class Entry extends React.Component {
   }
 
   init = () => {
-    window.onhashchange = () => {
+    window.onpopstate = () => {
       this.setState({
         path: RouterUtil.getPathFromUrl(),
       });
     };
   }
 
-  go = (path, params) => {
-    window.location.hash = RouterUtil.combinePathAndParams(path, params);
+  go = (path) => {
+    // todo isSamePath And Params return
+    window.history.pushState({}, '', `${window.location.href.split('.html')[0]}.html/${path}`);
+    setTimeout(() => {
+      this.setState({
+        path: RouterUtil.getPathFromUrl(),
+      });
+    }, 10);
   }
 
   render() {
@@ -37,5 +43,5 @@ class Entry extends React.Component {
 }
 
 export default (config, rootDom) => {
-  ReactDOM.render(<Entry config={config} />, rootDom || document.body);
+  ReactDOM.render(<Engine config={config} />, rootDom || document.body);
 };

@@ -1,5 +1,5 @@
 import {
-  Launch,
+  Engine,
 } from 'star-web';
 import './index.less';
 
@@ -22,7 +22,7 @@ import './index.less';
 //   'page1/:id?': require('./demo/home/pages/home/page.js'),
 // };
 
-Launch({
+Engine({
   root: 'dashboard/list',
   pages: {
     dashboard: require('./pages/dashboard/page.js').default,
