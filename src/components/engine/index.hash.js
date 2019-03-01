@@ -7,8 +7,13 @@ class HashEngine extends React.Component {
   constructor(props) {
     super(props);
     const { config } = props;
-    RouteUtil.routeCore = this;
-    RouteUtil.config = config;
+    RouteUtil.registerEngine({
+      engine: this,
+      config,
+    });
+    this.fromURLInfo = {};
+    this.toURLInfo = {};
+    this.routeAction = ''; // forward back replace refresh
     this.state = {
       path: RouteUtil.getPathFromUrl(),
     };
