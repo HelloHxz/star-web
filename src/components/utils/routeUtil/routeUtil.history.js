@@ -1,17 +1,21 @@
-class HistoryRouterUtil {
+class HistoryRouteUtil {
   constructor() {
-    this.routerCore = null;
+    this.routeCore = null;
   }
 
-  go = (path, params) => {
-    this.routerCore.go(path, params);
+  push = (path, params) => {
+    const _params = params || {};
+    this.routeCore.push(path, _params);
+  }
+
+  replace = (path, params) => {
+    this.routeCore.replace(path, params);
   }
 
   match = () => {
     return {
       path: this.getPathFromUrl(),
       query: this.getQueryFromUrl() || {},
-      queryStr: this.getQueryStringFromUrl() || '',
     };
   }
 
@@ -40,12 +44,12 @@ class HistoryRouterUtil {
   }
 
   getQueryFromUrl = () => {
-    const paraStr = this.getQueryStringFromUrl();
-    if (!paraStr) {
+    const queryStr = this.getQueryStringFromUrl();
+    if (!queryStr) {
       return null;
     }
     let re = {};
-    const paramsArr = paraStr.split('&');
+    const paramsArr = queryStr.split('&');
     for (let i = 0, j = paramsArr.length; i < j; i += 1) {
       const keyValueArr = paramsArr[i].split('=');
       if (keyValueArr.length === 2) {
@@ -57,7 +61,7 @@ class HistoryRouterUtil {
     return re;
   }
 
-  combinePathAndParams = (path, params) => {
+  combinePathAndQuery = (path, params) => {
     let _path = path || '';
     if (_path.indexOf('#') === 0) {
       _path = _path.substring(1);
@@ -81,4 +85,4 @@ class HistoryRouterUtil {
   }
 }
 
-export default new HistoryRouterUtil();
+export default new HistoryRouteUtil();

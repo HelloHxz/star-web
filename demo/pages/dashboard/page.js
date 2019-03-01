@@ -1,10 +1,10 @@
 import React from 'react';
-import { Router, Utils } from 'star-web';
+import { Route, Utils } from 'star-web';
 import ThemeBlocks from '../../theme';
 
 class DashBoard extends React.Component {
   go = () => {
-    Utils.router.go('dashboard/other', { id: 12, url: 'http://www.xx.com/23/12?params=参数&p=1', name: '参数?#@' });
+    Utils.route.push('dashboard/other', { id: 12, url: 'http://www.xx.com/23/12?params=参数&p=1', name: '参数?#@' });
   }
 
   render() {
@@ -17,7 +17,7 @@ class DashBoard extends React.Component {
           style={{ height: 30 }}
         />
         <button type="button" onClick={this.go.bind(this)}>跳转 dashboard/other</button>
-        <Router {...this.props} />
+        <Route {...this.props} />
       </div>
     );
   }

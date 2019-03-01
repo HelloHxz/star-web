@@ -4,11 +4,11 @@ import { Utils } from 'star-web';
 class Other extends React.Component {
   constructor(props) {
     super(props);
-    console.log(Utils.router.match());
+    console.log(Utils.route.match());
   }
 
   go = () => {
-    Utils.router.go('dashboard/page1/list', { data: JSON.stringify({ a: 1, url: 'http://www.xx.com/23/12?params=参数&p=1' }), name: '参数?#@' });
+    Utils.route.push('dashboard/page1/list', { data: JSON.stringify({ a: 1, url: 'http://www.xx.com/23/12?params=参数&p=1' }), name: '参数?#@' });
   }
 
   render() {

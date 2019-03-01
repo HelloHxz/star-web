@@ -8,10 +8,7 @@ function exists(path) {
 
 function isFile(path) {  
   return exists(path) && fs.statSync(path).isFile();  
-} 
-function isDir(path){  
-  return exists(path) && fs.statSync(path).isDirectory();  
-}  
+}
 function createTheme(){
   const ComPath = './src/components';
   const libLessFiles = fs.readdirSync(ComPath);

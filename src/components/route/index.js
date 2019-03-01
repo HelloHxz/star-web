@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Router extends React.Component {
+class Route extends React.Component {
   constructor(props) {
     super(props);
     this.init();
@@ -26,4 +26,4 @@ class Router extends React.Component {
   }
 }
 
-export default Router;
+export default Route;

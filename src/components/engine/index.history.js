@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Router from '../router';
-import RouterUtil from '../utils/routerUtil';
+import Route from '../route';
+import RouteUtil from '../utils/routeUtil/routeUtil';
 
-class Engine extends React.Component {
+class HistoryEngine extends React.Component {
   constructor(props) {
     super(props);
     const { config } = props;
-    RouterUtil.routerCore = this;
-    RouterUtil.config = config;
+    RouteUtil.routeCore = this;
+    RouteUtil.config = config;
     this.state = {
-      path: RouterUtil.getPathFromUrl(),
+      path: RouteUtil.getPathFromUrl(),
     };
     this.init();
   }
@@ -18,30 +18,34 @@ class Engine extends React.Component {
   init = () => {
     window.onpopstate = () => {
       this.setState({
-        path: RouterUtil.getPathFromUrl(),
+        path: RouteUtil.getPathFromUrl(),
       });
     };
   }
 
-  go = (path, params) => {
-    // todo isSamePath And Params return
-    window.history.pushState({}, '', RouterUtil.combinePathAndParams(path, params));
+  push = (path, query) => {
+    // todo isSamePath And query return
+    window.history.pushState({}, null, RouteUtil.combinePathAndQuery(path, query));
     setTimeout(() => {
       this.setState({
-        path: RouterUtil.getPathFromUrl(),
+        path: RouteUtil.getPathFromUrl(),
       });
     }, 10);
+  }
+
+  replace = (path, query) => {
+    window.history.replaceState({}, null, RouteUtil.combinePathAndQuery(path, query));
   }
 
   render() {
     const { config } = this.props;
     const { path } = this.state;
     return (
-      <Router path={path} config={config} />
+      <Route path={path} config={config} />
     );
   }
 }
 
 export default (config, rootDom) => {
-  ReactDOM.render(<Engine config={config} />, rootDom || document.body);
+  ReactDOM.render(<HistoryEngine config={config} />, rootDom || document.body);
 };

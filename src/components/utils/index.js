@@ -1,8 +1,8 @@
-import RouterUtil from './routerUtil';
+import RouteUtil from './routeUtil/routeUtil';
 
 class Utils {
   constructor() {
-    this.router = RouterUtil;
+    this.route = RouteUtil;
   }
 }
 

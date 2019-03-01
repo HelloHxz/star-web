@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Router from '../router';
-import RouterUtil from '../utils/routerUtil';
+import Route from '../route';
+import RouteUtil from '../utils/routeUtil/routeUtil';
 
-class Engine extends React.Component {
+class HashEngine extends React.Component {
   constructor(props) {
     super(props);
     const { config } = props;
-    RouterUtil.routerCore = this;
-    RouterUtil.config = config;
+    RouteUtil.routeCore = this;
+    RouteUtil.config = config;
     this.state = {
-      path: RouterUtil.getPathFromUrl(),
+      path: RouteUtil.getPathFromUrl(),
     };
     this.init();
   }
@@ -18,24 +18,28 @@ class Engine extends React.Component {
   init = () => {
     window.onhashchange = () => {
       this.setState({
-        path: RouterUtil.getPathFromUrl(),
+        path: RouteUtil.getPathFromUrl(),
       });
     };
   }
 
-  go = (path, params) => {
-    window.location.hash = RouterUtil.combinePathAndParams(path, params);
+  push = (path, query) => {
+    window.location.hash = RouteUtil.combinePathAndQuery(path, query);
+  }
+
+  replace = (path, query) => {
+    window.location.hash = RouteUtil.combinePathAndQuery(path, query);
   }
 
   render() {
     const { config } = this.props;
     const { path } = this.state;
     return (
-      <Router path={path} config={config} />
+      <Route path={path} config={config} />
     );
   }
 }
 
 export default (config, rootDom) => {
-  ReactDOM.render(<Engine config={config} />, rootDom || document.body);
+  ReactDOM.render(<HashEngine config={config} />, rootDom || document.body);
 };
