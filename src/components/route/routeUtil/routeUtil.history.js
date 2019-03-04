@@ -6,7 +6,7 @@ class HistoryRouteUtil extends RouteUtilCommon {
     const nameArr = urlInfo.pathname.split('html');
     const s = nameArr[1];
     if (!s) {
-      return this.config.root || '';
+      return this.getConfigRootPath();
     }
     const sArr = s.split('?');
     let path = sArr[0] || '';

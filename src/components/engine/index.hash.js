@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Route from '../route';
-import RouteUtil from '../utils/routeUtil/routeUtil';
+import RouteUtil from '../route/routeUtil/routeUtil';
 
 class HashEngine extends React.Component {
   constructor(props) {

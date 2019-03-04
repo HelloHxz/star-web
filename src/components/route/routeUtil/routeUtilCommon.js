@@ -1,7 +1,31 @@
 export default class RouteUtilCommon {
   registerEngine = ({ engine, config }) => {
     this.engine = engine;
-    this.config = config;
+    this.routeConfig = config;
+  }
+
+  _parseRouteConfig = () => {
+
+  }
+
+  _parsePath = (path) => {
+    /*
+      const router = {
+        home: require('./demo/home/pages/home/page.js'),
+        'other/:id': require('./demo/home/pages/home/page.js'),
+        'some/somepage': require('./demo/home/pages/somepage/page.js'),
+      };
+    */
+    const pathArr = path.split('/');
+    const curPageName = pathArr.shift();
+    return {
+      PageClass: this.routeConfig.pages[curPageName],
+      remainPath: pathArr.join('/'),
+    };
+  }
+
+  getConfigRootPath = () => {
+    return this.routeConfig.root || '';
   }
 
   match = () => {

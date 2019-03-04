@@ -1,29 +1,10 @@
 import React from 'react';
+import RouteUtil from './routeUtil/routeUtil';
 
-class Route extends React.Component {
-  constructor(props) {
-    super(props);
-    this.init();
-  }
-
-  init = () => {
-  }
-
-  getCurPageClass = () => {
-    const { path, config } = this.props;
-    const pathArr = path.split('/');
-    const curPageName = pathArr.shift();
-    return {
-      Component: config.pages[curPageName],
-      path: pathArr.join('/'),
-    };
-  }
-
+export default class Route extends React.Component {
   render() {
-    const { config } = this.props;
-    const PageInfo = this.getCurPageClass();
-    return (<PageInfo.Component config={config} path={PageInfo.path} />);
+    const { path } = this.props;
+    const { remainPath, PageClass } = RouteUtil._parsePath(path);
+    return (<PageClass path={remainPath} />);
   }
 }
-
-export default Route;

@@ -1,4 +1,4 @@
-import RouteUtil from './routeUtil/routeUtil';
+import RouteUtil from '../route/routeUtil/routeUtil';
 
 class Utils {
   constructor() {

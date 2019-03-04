@@ -6,7 +6,7 @@ class HashRouteUtil extends RouteUtilCommon {
     const nameArr = urlInfo.hash.split('#');
     const s = nameArr[1];
     if (!s) {
-      return this.config.root || '';
+      return this.getConfigRootPath();
     }
     const sArr = s.split('?');
     return sArr[0] || '';
