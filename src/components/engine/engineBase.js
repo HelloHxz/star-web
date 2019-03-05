@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Route from '../route';
 import RouteUtil from '../route/routeUtil/routeUtil';
 
-class HistoryEngine extends React.Component {
+export default class BaseEngin extends React.Component {
   constructor(props) {
     super(props);
     const { config } = props;
@@ -11,12 +10,12 @@ class HistoryEngine extends React.Component {
       engine: this,
       config,
     });
-    this.fromURLInfo = {};
+    this.fromURLInfo = RouteUtil.getUrlInfo();
+    this.isBlockingRender = false;
     this.routeAction = ''; // forward back replace refresh
     this.state = {
       path: RouteUtil.getPathFromUrl(),
     };
-    this.init();
   }
 
   setRouteLeaveHook = (pageInstance, cb) => {
@@ -26,26 +25,11 @@ class HistoryEngine extends React.Component {
     };
   }
 
-  init = () => {
-    window.onpopstate = () => {
-      this.setState({
-        path: RouteUtil.getPathFromUrl(),
-      });
-    };
-  }
-
-  push = (path, query) => {
-    // todo isSamePath And query return
-    window.history.pushState({}, null, RouteUtil.combinePathAndQuery(path, query));
-    setTimeout(() => {
-      this.setState({
-        path: RouteUtil.getPathFromUrl(),
-      });
-    }, 10);
-  }
-
-  replace = (path, query) => {
-    window.history.replaceState({}, null, RouteUtil.combinePathAndQuery(path, query));
+  _renderByPath = (toURLInfo) => {
+    this.setState({
+      path: RouteUtil.getPathFromUrl(),
+    });
+    this.fromURLInfo = toURLInfo;
   }
 
   render() {
@@ -59,7 +43,3 @@ class HistoryEngine extends React.Component {
     return route;
   }
 }
-
-export default (config, rootDom) => {
-  ReactDOM.render(<HistoryEngine config={config} />, rootDom || document.body);
-};
