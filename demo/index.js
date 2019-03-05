@@ -6,6 +6,7 @@ import './index.less';
 Engine({
   root: 'dashboard/list',
   pages: {
+    '/': require('./pages/global/page.js').default,
     dashboard: require('./pages/dashboard/page.js').default,
     list: require('./pages/list/page.js').default,
     other: require('./pages/other/page.js').default,

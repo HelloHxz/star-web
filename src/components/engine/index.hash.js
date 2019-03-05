@@ -12,7 +12,7 @@ class HashEngine extends React.Component {
       config,
     });
     this.fromURLInfo = RouteUtil.getUrlInfo();
-    this.blockingToRender = false;
+    this.isBlockingRender = false;
     this.routeAction = ''; // forward back replace refresh
     this.state = {
       path: RouteUtil.getPathFromUrl(),
@@ -34,8 +34,8 @@ class HashEngine extends React.Component {
 
   init = () => {
     window.onhashchange = () => {
-      if (this.blockingToRender) {
-        this.blockingToRender = false;
+      if (this.isBlockingRender) {
+        this.isBlockingRender = false;
         return;
       }
       const toURLInfo = RouteUtil.getUrlInfo();
@@ -49,29 +49,28 @@ class HashEngine extends React.Component {
         if (registerHookRouteKey === this.fromURLInfo.routeKey) {
           this.currentLeaveHookInfo.cb({
             ok: () => {
-              this.renderByPath(toURLInfo);
+              this._renderByPath(toURLInfo);
             },
             cancel: () => {
+              // 修复URL
+              this.isBlockingRender = true;
               if (this.routeAction === 'back') {
-                this.blockingToRender = true;
                 window.history.go(1);
               } else if (this.routeAction === 'forward') {
-                this.blockingToRender = true;
                 window.history.go(-1);
               }
-              // blocking
             },
           });
         } else {
-          this.renderByPath(toURLInfo);
+          this._renderByPath(toURLInfo);
         }
       } else {
-        this.renderByPath(toURLInfo);
+        this._renderByPath(toURLInfo);
       }
     };
   }
 
-  renderByPath = (toURLInfo) => {
+  _renderByPath = (toURLInfo) => {
     this.setState({
       path: RouteUtil.getPathFromUrl(),
     });
@@ -89,9 +88,12 @@ class HashEngine extends React.Component {
   render() {
     const { config } = this.props;
     const { path } = this.state;
-    return (
-      <Route path={path} config={config} />
-    );
+    const GlobalPage = config.pages['/'];
+    const route = <Route path={path} config={config} />;
+    if (GlobalPage) {
+      return <GlobalPage>{route}</GlobalPage>;
+    }
+    return route;
   }
 }
 

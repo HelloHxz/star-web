@@ -20,6 +20,13 @@ class HistoryEngine extends React.Component {
     this.init();
   }
 
+  setRouteLeaveHook = (pageInstance, cb) => {
+    this.currentLeaveHookInfo = {
+      cb,
+      pageInstance,
+    };
+  }
+
   init = () => {
     window.onpopstate = () => {
       this.setState({
@@ -45,9 +52,12 @@ class HistoryEngine extends React.Component {
   render() {
     const { config } = this.props;
     const { path } = this.state;
-    return (
-      <Route path={path} config={config} />
-    );
+    const GlobalPage = config.pages['/'];
+    const route = <Route path={path} config={config} />;
+    if (GlobalPage) {
+      return <GlobalPage>{route}</GlobalPage>;
+    }
+    return route;
   }
 }
 
