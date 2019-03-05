@@ -7,8 +7,19 @@ class Other extends React.Component {
     console.log(Utils.route.match());
   }
 
+  componentDidMount = () => {
+    Utils.route.setRouteLeaveHook(this, (params) => {
+      const re = window.confirm('你确定要离开Other页面吗？');
+      if (re) {
+        params.ok(); // params.cancel
+      } else {
+        params.cancel(); // params.cancel
+      }
+    });
+  }
+
   go = () => {
-    Utils.route.push('dashboard/page1/list', { data: JSON.stringify({ a: 1, url: 'http://www.xx.com/23/12?params=参数&p=1' }), name: '参数?#@' });
+    Utils.route.push('dashboard/page1/list');
   }
 
   render() {

@@ -12,6 +12,7 @@ class HashEngine extends React.Component {
       config,
     });
     this.fromURLInfo = RouteUtil.getUrlInfo();
+    this.blockingToRender = false;
     this.routeAction = ''; // forward back replace refresh
     this.state = {
       path: RouteUtil.getPathFromUrl(),
@@ -33,30 +34,48 @@ class HashEngine extends React.Component {
 
   init = () => {
     window.onhashchange = () => {
+      if (this.blockingToRender) {
+        this.blockingToRender = false;
+        return;
+      }
       const toURLInfo = RouteUtil.getUrlInfo();
-      console.log('from>>>>>>>>>>>');
-      console.log(this.fromURLInfo);
-      console.log('to>>>>>>>>>>>');
-      console.log(toURLInfo);
-      if (this.currentLeaveHookInfo) {
-        this.currentLeaveHookInfo.cb({
-          ok: () => {
-            this.setState({
-              path: RouteUtil.getPathFromUrl(),
-            });
-            this.fromURLInfo = toURLInfo;
-          },
-          cancel: () => {
-            // blocking
-          },
-        });
+      if (this.fromURLInfo.routeKey > toURLInfo.routeKey) {
+        this.routeAction = 'back';
       } else {
-        this.setState({
-          path: RouteUtil.getPathFromUrl(),
-        });
-        this.fromURLInfo = toURLInfo;
+        this.routeAction = 'forward';
+      }
+      if (this.currentLeaveHookInfo) {
+        const registerHookRouteKey = this.currentLeaveHookInfo.pageInstance.props.urlInfo.routeKey;
+        if (registerHookRouteKey === this.fromURLInfo.routeKey) {
+          this.currentLeaveHookInfo.cb({
+            ok: () => {
+              this.renderByPath(toURLInfo);
+            },
+            cancel: () => {
+              if (this.routeAction === 'back') {
+                this.blockingToRender = true;
+                window.history.go(1);
+              } else if (this.routeAction === 'forward') {
+                this.blockingToRender = true;
+                window.history.go(-1);
+              }
+              // blocking
+            },
+          });
+        } else {
+          this.renderByPath(toURLInfo);
+        }
+      } else {
+        this.renderByPath(toURLInfo);
       }
     };
+  }
+
+  renderByPath = (toURLInfo) => {
+    this.setState({
+      path: RouteUtil.getPathFromUrl(),
+    });
+    this.fromURLInfo = toURLInfo;
   }
 
   push = (path, query) => {

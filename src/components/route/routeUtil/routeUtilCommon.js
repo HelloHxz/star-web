@@ -2,6 +2,19 @@ export default class RouteUtilCommon {
   registerEngine = ({ engine, config }) => {
     this.engine = engine;
     this.routeConfig = config;
+    this.routeSeedKey = '__r';
+    const initQuery = this.getQueryFromUrl();
+    this.routeSeed = this._getRouteSeed(initQuery);
+  }
+
+  _getRouteSeed = (query) => {
+    const _query = query || {};
+    let routeSeed = _query[this.routeSeedKey] || 0;
+    // eslint-disable-next-line
+    if (isNaN(routeSeed)) {
+      routeSeed = 0;
+    }
+    return parseInt(routeSeed, 10);
   }
 
   _parseRouteConfig = () => {
@@ -25,8 +38,6 @@ export default class RouteUtilCommon {
   }
 
   setRouteLeaveHook = (pageInstance, cb) => {
-    // 判断是否是路由末级 如果不是则忽略
-    // const { routeWrapper } = pageInstance.props;
     this.engine.setRouteLeaveHook(pageInstance, cb);
   }
 
@@ -46,7 +57,10 @@ export default class RouteUtilCommon {
   }
 
   push = (path, params) => {
-    this.engine.push(path, params);
+    const _params = params || {};
+    this.routeSeed += 1;
+    _params[this.routeSeedKey] = this.routeSeed;
+    this.engine.push(path, _params);
   }
 
   replace = (path, params) => {
@@ -105,10 +119,14 @@ export default class RouteUtilCommon {
       hash: window.location.hash,
       pathname: window.location.pathname,
     };
+    const pagename = this.getPathFromUrl(re);
+    const routeSeed = this._getRouteSeed(this.getQueryFromUrl(re));
     return {
       ...re,
       ...{
-        pagename: this.getPathFromUrl(re),
+        routeSeed: parseInt(routeSeed, 10),
+        pagename,
+        routeKey: `${pagename}_${routeSeed}`,
       },
     };
   }

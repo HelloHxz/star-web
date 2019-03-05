@@ -17,6 +17,7 @@ export default class Route extends React.Component {
         routerWrapper={this}
         ref={(ins) => { this.routePageInit(ins); }}
         path={remainPath}
+        urlInfo={RouteUtil.getUrlInfo()}
       />
     );
   }
