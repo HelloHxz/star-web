@@ -24,6 +24,16 @@ export default class RouteUtilCommon {
     };
   }
 
+  setRouteLeaveHook = (pageInstance, cb) => {
+    // 判断是否是路由末级 如果不是则忽略
+    // const { routeWrapper } = pageInstance.props;
+    this.engine.setRouteLeaveHook(pageInstance, cb);
+  }
+
+  removeLeaveHook = () => {
+    this.engine.removeLeaveHook();
+  }
+
   getConfigRootPath = () => {
     return this.routeConfig.root || '';
   }
@@ -90,10 +100,16 @@ export default class RouteUtilCommon {
   }
 
   getUrlInfo = () => {
-    return {
+    const re = {
       href: window.location.href,
       hash: window.location.hash,
       pathname: window.location.pathname,
+    };
+    return {
+      ...re,
+      ...{
+        pagename: this.getPathFromUrl(re),
+      },
     };
   }
 }

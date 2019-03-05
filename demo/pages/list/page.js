@@ -4,7 +4,11 @@ import './index.less';
 
 class ListPage extends React.Component {
   componentDidMount = () => {
-    console.log(Utils.route.match());
+    Utils.route.setRouteLeaveHook(this, (params) => {
+      console.log('>>>>>>>>>>>>>>>>>>>');
+      console.log(Utils.route.match());
+      params.ok(); // params.cancel
+    });
   }
 
   render() {

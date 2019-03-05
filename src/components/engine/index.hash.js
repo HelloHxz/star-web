@@ -11,8 +11,7 @@ class HashEngine extends React.Component {
       engine: this,
       config,
     });
-    this.fromURLInfo = {};
-    this.toURLInfo = {};
+    this.fromURLInfo = RouteUtil.getUrlInfo();
     this.routeAction = ''; // forward back replace refresh
     this.state = {
       path: RouteUtil.getPathFromUrl(),
@@ -20,11 +19,43 @@ class HashEngine extends React.Component {
     this.init();
   }
 
+  setRouteLeaveHook = (pageInstance, cb) => {
+    // const { routeWrapper } = pageInstance.props;
+    this.currentLeaveHookInfo = {
+      cb,
+      pageInstance,
+    };
+  }
+
+  removeLeaveHook = () => {
+    this.currentLeaveHookInfo = null;
+  }
+
   init = () => {
     window.onhashchange = () => {
-      this.setState({
-        path: RouteUtil.getPathFromUrl(),
-      });
+      const toURLInfo = RouteUtil.getUrlInfo();
+      console.log('from>>>>>>>>>>>');
+      console.log(this.fromURLInfo);
+      console.log('to>>>>>>>>>>>');
+      console.log(toURLInfo);
+      if (this.currentLeaveHookInfo) {
+        this.currentLeaveHookInfo.cb({
+          ok: () => {
+            this.setState({
+              path: RouteUtil.getPathFromUrl(),
+            });
+            this.fromURLInfo = toURLInfo;
+          },
+          cancel: () => {
+            // blocking
+          },
+        });
+      } else {
+        this.setState({
+          path: RouteUtil.getPathFromUrl(),
+        });
+        this.fromURLInfo = toURLInfo;
+      }
     };
   }
 
