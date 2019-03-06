@@ -12,3 +12,5 @@
 
 > 组件的编译按需加载
 
+> 实现基本路由 blocking historyState hashRoute
+
