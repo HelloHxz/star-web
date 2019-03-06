@@ -1,3 +1,5 @@
+import ObjectUtils from '../../utils/objectUtil';
+
 export default class RouteUtilCommon {
   registerEngine = ({ engine, config }) => {
     this.engine = engine;
@@ -56,15 +58,28 @@ export default class RouteUtilCommon {
     };
   }
 
-  push = (path, params) => {
-    const _params = params || {};
+  push = (path, query) => {
+    const _query = query || {};
+    if (!ObjectUtils.isJson(_query)) {
+      console.error(' push 方法参数需为JSON对象！如：Utils.route.push("xx/xx", { id: 12})');
+      return;
+    }
+    // 判断一下path 和 变量 一致的话 就返回
+    if (this._urlIsSame(path, _query)) {
+      return;
+    }
     this.routeSeed += 1;
-    _params[this.routeSeedKey] = this.routeSeed;
-    this.engine.push(path, _params);
+    _query[this.routeSeedKey] = this.routeSeed;
+    this.engine.push(path, _query);
   }
 
-  replace = (path, params) => {
-    this.engine.replace(path, params);
+  replace = (path, query) => {
+    const _query = query || {};
+    if (!ObjectUtils.isJson(_query)) {
+      console.error(' replace 方法参数需为JSON对象！如：Utils.route.replace("xx/xx", { id: 12})');
+      return;
+    }
+    this.engine.replace(path, query);
   }
 
   getQueryStringFromUrl = (_urlInfo) => {
@@ -85,9 +100,9 @@ export default class RouteUtilCommon {
       return null;
     }
     let re = {};
-    const paramsArr = queryStr.split('&');
-    for (let i = 0, j = paramsArr.length; i < j; i += 1) {
-      const keyValueArr = paramsArr[i].split('=');
+    const queryArr = queryStr.split('&');
+    for (let i = 0, j = queryArr.length; i < j; i += 1) {
+      const keyValueArr = queryArr[i].split('=');
       if (keyValueArr.length === 2) {
         re = re || {};
         const [key, value] = keyValueArr;
@@ -121,13 +136,62 @@ export default class RouteUtilCommon {
     };
     const pagename = this.getPathFromUrl(re);
     const routeSeed = this._getRouteSeed(this.getQueryFromUrl(re));
+    const query = this.getQueryFromUrl(re);
     return {
       ...re,
       ...{
         routeSeed: parseInt(routeSeed, 10),
         pagename,
         routeKey: `${pagename}_${routeSeed}`,
+        query,
       },
     };
+  }
+
+  _urlIsSame = (path, query) => {
+    const urlInfo = this.getUrlInfo();
+    return this._pathIsSame(path, urlInfo.pagename)
+    && this._queryIsSame(query || {}, urlInfo.query || {});
+  }
+
+  _pathIsSame = (path1, path2) => {
+    return this._addPrefixAndSubFix(path1) === this._addPrefixAndSubFix(path2);
+  }
+
+  _queryIsSame = (query1, query2) => {
+    if (this._getQueryCount(query1) !== this._getQueryCount(query2)) {
+      return false;
+    }
+    let isSame = true;
+    for (const key in query1) {
+      if (key !== this.routeSeedKey) {
+        if (query1[key].toString() !== query2[key].toString()) {
+          isSame = false;
+          break;
+        }
+      }
+    }
+    return isSame;
+  }
+
+  _getQueryCount = (query) => {
+    let i = 0;
+    for (const key in query) {
+      if (key !== this.routeSeedKey) {
+        i += 1;
+      }
+    }
+    return i;
+  }
+
+  _addPrefixAndSubFix = (path) => {
+    let _path = path;
+    if (_path.substring(0, 1) !== '/') {
+      _path = `/${_path}`;
+    }
+    if (_path.substring(_path.length - 1) !== '/') {
+      _path = `${_path}/`;
+    }
+    return _path;
   }
 }

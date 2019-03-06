@@ -7,6 +7,7 @@ class Utils {
     this.route = RouteUtil;
     this.object = ObjectUtil;
     this.browser = BrowserUtil;
+    console.log(RouteUtil);
   }
 }
 
