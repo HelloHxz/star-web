@@ -64,7 +64,6 @@ export default class RouteUtilCommon {
       console.error(' push 方法参数需为JSON对象！如：Utils.route.push("xx/xx", { id: 12})');
       return;
     }
-    // 判断一下path 和 变量 一致的话 就返回
     if (this._urlIsSame(path, _query)) {
       return;
     }
@@ -75,6 +74,9 @@ export default class RouteUtilCommon {
 
   replace = (path, query) => {
     const _query = query || {};
+    if (this._urlIsSame(path, _query)) {
+      return;
+    }
     if (!ObjectUtils.isJson(_query)) {
       console.error(' replace 方法参数需为JSON对象！如：Utils.route.replace("xx/xx", { id: 12})');
       return;
