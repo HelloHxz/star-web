@@ -25,13 +25,6 @@ export default class BaseEngin extends React.Component {
     };
   }
 
-  _renderByPath = (toURLInfo) => {
-    this.setState({
-      path: RouteUtil.getPathFromUrl(),
-    });
-    this.fromURLInfo = toURLInfo;
-  }
-
   _urlChange = () => {
     if (this.isBlockingRender) {
       this.isBlockingRender = false;
@@ -66,6 +59,13 @@ export default class BaseEngin extends React.Component {
     } else {
       this._renderByPath(toURLInfo);
     }
+  }
+
+  _renderByPath = (toURLInfo) => {
+    this.setState({
+      path: RouteUtil.getPathFromUrl(),
+    });
+    this.fromURLInfo = toURLInfo;
   }
 
   render() {

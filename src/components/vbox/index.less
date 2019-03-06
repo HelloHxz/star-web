@@ -1,0 +1,75 @@
+.star-vbox{
+     height: 100%; 
+     position: relative;
+     width: 100%;
+     overflow: hidden;
+}
+
+.star-vbox-panel{
+    position: absolute;
+    width:100%;
+    left:0;
+    transition: top .3s ease, bottom .3s ease, height .3s ease;
+    backface-visibility: hidden;
+}
+.star-vbox-bk{
+    z-index: 2;
+}
+
+.star-vbox-transition-top-none{
+    transition: bottom .3s ease, height .3s ease;
+}
+.star-vbox-transition-bottom-none{
+    transition: top .3s ease, height .3s ease;
+}
+
+.star-vbox-panel-top-popshow{
+    z-index: 3;
+    animation:toppopshow .3s ease;
+    transform: translateY(0);
+}
+
+@keyframes toppopshow
+{
+    from {transform: translateY(-100%);}
+    to {transform: translateY(0);}
+}
+
+.star-vbox-panel-top-pophide{
+    z-index: 3;
+    transform: translateY(-100%);
+    animation:toppophide .3s ease;
+}
+
+@keyframes toppophide
+{
+    from {transform: translateY(0);}
+    to {transform: translateY(-100%);}
+}
+
+.star-vbox-panel-bottom-popshow{
+    z-index: 3;
+    animation:bottompopshow .3s ease;
+    transform: translateY(0);
+}
+
+@keyframes bottompopshow
+{
+    from {transform: translateY(100%);}
+    to {transform: translateY(0);}
+}
+.star-vbox-panel-bottom-pophide{
+    z-index: 3;
+    transform: translateY(100%);
+    animation:bottompophide .3s ease;
+}
+
+@keyframes bottompophide
+{
+    from {transform: translateY(0);}
+    to {transform: translateY(100%);}
+}
+
+// .star-vbox-panel-top-dock,.star-vbox-panel-bottom-dock{
+//     z-index: 2;
+// }
