@@ -1,6 +1,6 @@
-import RouteUtilCommon from './routeUtilCommon';
+import RouteUtilBase from './routeUtilBase';
 
-class HistoryRouteUtil extends RouteUtilCommon {
+class HistoryRouteUtil extends RouteUtilBase {
   getPathFromUrl = (_urlInfo) => {
     const urlInfo = _urlInfo || this.getUrlInfo();
     const nameArr = urlInfo.pathname.split('html');

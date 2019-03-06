@@ -32,6 +32,42 @@ export default class BaseEngin extends React.Component {
     this.fromURLInfo = toURLInfo;
   }
 
+  _urlChange = () => {
+    if (this.isBlockingRender) {
+      this.isBlockingRender = false;
+      return;
+    }
+    const toURLInfo = RouteUtil.getUrlInfo();
+    if (this.fromURLInfo.routeKey > toURLInfo.routeKey) {
+      this.routeAction = 'back';
+    } else {
+      this.routeAction = 'forward';
+    }
+    if (this.currentLeaveHookInfo) {
+      const registerHookRouteKey = this.currentLeaveHookInfo.pageInstance.props.urlInfo.routeKey;
+      if (registerHookRouteKey === this.fromURLInfo.routeKey) {
+        this.currentLeaveHookInfo.cb({
+          ok: () => {
+            this._renderByPath(toURLInfo);
+          },
+          cancel: () => {
+            // 修复URL
+            this.isBlockingRender = true;
+            if (this.routeAction === 'back') {
+              window.history.go(1);
+            } else if (this.routeAction === 'forward') {
+              window.history.go(-1);
+            }
+          },
+        });
+      } else {
+        this._renderByPath(toURLInfo);
+      }
+    } else {
+      this._renderByPath(toURLInfo);
+    }
+  }
+
   render() {
     const { config } = this.props;
     const { path } = this.state;

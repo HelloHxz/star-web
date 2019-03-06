@@ -13,7 +13,7 @@ class GlobalPage extends React.Component {
       this.setState({
         hasInit: true,
       });
-    }, 3000);
+    }, 1000);
   }
 
   render() {

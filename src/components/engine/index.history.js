@@ -1,36 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Route from '../route';
+import EnginBase from './engineBase';
 import RouteUtil from '../route/routeUtil/routeUtil';
 
-class HistoryEngine extends React.Component {
+class HistoryEngine extends EnginBase {
   constructor(props) {
     super(props);
-    const { config } = props;
-    RouteUtil.registerEngine({
-      engine: this,
-      config,
-    });
-    this.fromURLInfo = {};
-    this.routeAction = ''; // forward back replace refresh
-    this.state = {
-      path: RouteUtil.getPathFromUrl(),
-    };
     this.init();
-  }
-
-  setRouteLeaveHook = (pageInstance, cb) => {
-    this.currentLeaveHookInfo = {
-      cb,
-      pageInstance,
-    };
   }
 
   init = () => {
     window.onpopstate = () => {
-      this.setState({
-        path: RouteUtil.getPathFromUrl(),
-      });
+      this._urlChange();
     };
   }
 
@@ -38,25 +19,12 @@ class HistoryEngine extends React.Component {
     // todo isSamePath And query return
     window.history.pushState({}, null, RouteUtil.combinePathAndQuery(path, query));
     setTimeout(() => {
-      this.setState({
-        path: RouteUtil.getPathFromUrl(),
-      });
-    }, 10);
+      this._urlChange();
+    }, 6);
   }
 
   replace = (path, query) => {
     window.history.replaceState({}, null, RouteUtil.combinePathAndQuery(path, query));
-  }
-
-  render() {
-    const { config } = this.props;
-    const { path } = this.state;
-    const GlobalPage = config.pages['/'];
-    const route = <Route path={path} config={config} />;
-    if (GlobalPage) {
-      return <GlobalPage>{route}</GlobalPage>;
-    }
-    return route;
   }
 }
 
