@@ -10,13 +10,13 @@ export default class Box extends React.Component {
     this.boxType = props.boxType || 'hbox';
     this.layoutInfo = {};
     if (this.boxType === 'hbox') {
-      this.firstBoxMark = 'left';
-      this.lastBoxMark = 'right';
-      this.sizeMark = 'width';
+      this.firstPanelPos = 'left';
+      this.lastPanelPos = 'right';
+      this.widtOrHeight = 'width';
     } else {
-      this.firstBoxMark = 'top';
-      this.lastBoxMark = 'bottom';
-      this.sizeMark = 'height';
+      this.firstPanelPos = 'top';
+      this.lastPanelPos = 'bottom';
+      this.widtOrHeight = 'height';
     }
   }
 
@@ -41,10 +41,10 @@ export default class Box extends React.Component {
     for (let i = 0; i < len; i += 1) {
       const panel = children[i];
       if (panel.type === Panel) {
-        const positions = [this.firstBoxMark, 'middle', this.lastBoxMark];
+        const positions = [this.firstPanelPos, 'middle', this.lastPanelPos];
         const position = positions[seed];
         let status = null;
-        if (position === this.firstBoxMark || position === this.lastBoxMark) {
+        if (position === this.firstPanelPos || position === this.lastPanelPos) {
           status = panel.props.status || 'dock';
           if (statusArr.indexOf(status) < 0) {
             status = 'dock';
@@ -58,15 +58,15 @@ export default class Box extends React.Component {
           key: position,
           parent: this,
           boxType: this.boxType,
-          sizeMark: this.sizeMark,
-          firstBoxMark: this.firstBoxMark,
-          lastBoxMark: this.lastBoxMark,
+          widtOrHeight: this.widtOrHeight,
+          firstPanelPos: this.firstPanelPos,
+          lastPanelPos: this.lastPanelPos,
         }));
         const propsStyle = panel.props.style || {};
         this.layoutInfo[position] = {
           status,
         };
-        this.layoutInfo[position][this.sizeMark] = propsStyle[this.sizeMark];
+        this.layoutInfo[position][this.widtOrHeight] = propsStyle[this.widtOrHeight];
         if (childrenArr.length === 3) {
           break;
         }

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Route, Utils } from 'star-web';
+import {
+  Route, Utils, Vbox, Hbox,
+} from 'star-web';
 import ThemeBlocks from '../../theme';
 
 class DashBoard extends React.Component {
@@ -9,16 +11,21 @@ class DashBoard extends React.Component {
 
   render() {
     return (
-      <div>
-        DashBoard
-        <ThemeBlocks />
-        <div
-          className="test-theme-background"
-          style={{ height: 30 }}
-        />
-        <button type="button" onClick={this.go.bind(this)}>跳转 dashboard/other</button>
-        <Route {...this.props} />
-      </div>
+      <Vbox>
+        <Vbox.Panel style={{ height: 50, borderBottom: '1px solid #eee' }}>
+          <ThemeBlocks />
+        </Vbox.Panel>
+        <Vbox.Panel>
+          <Hbox>
+            <Hbox.Panel style={{ width: 130, backgroundColor: '#f2f3f4' }}>
+              <button type="button" onClick={this.go.bind(this)}>dashboard/other</button>
+            </Hbox.Panel>
+            <Hbox.Panel>
+              <Route {...this.props} />
+            </Hbox.Panel>
+          </Hbox>
+        </Vbox.Panel>
+      </Vbox>
     );
   }
 }

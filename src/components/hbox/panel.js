@@ -3,16 +3,16 @@ import React from 'react';
 class Panel extends React.Component {
   getSize = (position, parent) => {
     const {
-      sizeMark,
+      widtOrHeight,
     } = this.props;
     const { layoutInfo } = parent;
     if (!layoutInfo[position]) {
       return 0;
     }
-    if (!layoutInfo[position][sizeMark]) {
-      layoutInfo[position][sizeMark] = 60;
+    if (!layoutInfo[position][widtOrHeight]) {
+      layoutInfo[position][widtOrHeight] = 60;
     }
-    return layoutInfo[position][sizeMark];
+    return layoutInfo[position][widtOrHeight];
   }
 
   getStatus = (position, parent) => {
@@ -24,44 +24,44 @@ class Panel extends React.Component {
 
   getStyle = () => {
     const {
-      firstBoxMark, lastBoxMark, sizeMark, style,
+      firstPanelPos, lastPanelPos, widtOrHeight, style,
     } = this.props;
     const cloneStyle = Object.assign({}, style || {});
     const { position, parent } = this.props;
-    const firstBoxStatus = this.getStatus(firstBoxMark, parent);
-    const lastBoxStatus = this.getStatus(lastBoxMark, parent);
-    const firstBoxSize = this.getSize(firstBoxMark, parent);
-    const lastBoxSize = this.getSize(lastBoxMark, parent);
+    const firstBoxStatus = this.getStatus(firstPanelPos, parent);
+    const lastBoxStatus = this.getStatus(lastPanelPos, parent);
+    const firstBoxSize = this.getSize(firstPanelPos, parent);
+    const lastBoxSize = this.getSize(lastPanelPos, parent);
     delete cloneStyle.position;
-    delete cloneStyle[lastBoxMark];
+    delete cloneStyle[lastPanelPos];
     delete cloneStyle.height;
     delete cloneStyle.width;
-    delete cloneStyle[firstBoxMark];
-    if (position === firstBoxMark) {
+    delete cloneStyle[firstPanelPos];
+    if (position === firstPanelPos) {
       if (firstBoxStatus === 'slidehide') {
-        cloneStyle[firstBoxMark] = (0 - parseInt(firstBoxSize, 0));
+        cloneStyle[firstPanelPos] = (0 - parseInt(firstBoxSize, 0));
       } else {
-        cloneStyle[firstBoxMark] = 0;
+        cloneStyle[firstPanelPos] = 0;
       }
-      cloneStyle[sizeMark] = firstBoxSize;
+      cloneStyle[widtOrHeight] = firstBoxSize;
     } else if (position === 'middle') {
       if (firstBoxStatus === 'popshow' || firstBoxStatus === 'pophide' || firstBoxStatus === 'slidehide') {
-        cloneStyle[firstBoxMark] = 0;
+        cloneStyle[firstPanelPos] = 0;
       } else {
-        cloneStyle[firstBoxMark] = firstBoxSize;
+        cloneStyle[firstPanelPos] = firstBoxSize;
       }
       if (lastBoxStatus === 'popshow' || lastBoxStatus === 'pophide' || lastBoxStatus === 'slidehide') {
-        cloneStyle[lastBoxMark] = 0;
+        cloneStyle[lastPanelPos] = 0;
       } else {
-        cloneStyle[lastBoxMark] = lastBoxSize;
+        cloneStyle[lastPanelPos] = lastBoxSize;
       }
-    } else if (position === lastBoxMark) {
+    } else if (position === lastPanelPos) {
       if (lastBoxStatus === 'slidehide') {
-        cloneStyle[lastBoxMark] = (0 - parseInt(lastBoxSize, 10));
+        cloneStyle[lastPanelPos] = (0 - parseInt(lastBoxSize, 10));
       } else {
-        cloneStyle[lastBoxMark] = 0;
+        cloneStyle[lastPanelPos] = 0;
       }
-      cloneStyle[sizeMark] = lastBoxSize;
+      cloneStyle[widtOrHeight] = lastBoxSize;
     }
     return cloneStyle;
   }
@@ -69,13 +69,13 @@ class Panel extends React.Component {
   render() {
     const { boxType } = this.props;
     const {
-      position, parent, className, children,
+      position, parent, className, children, firstPanelPos, lastPanelPos,
     } = this.props;
     const status = this.getStatus(position, parent);
     const classNameArr = [`star-${boxType}-panel`, `star-${boxType}-panel-${position}${status ? `-${status}` : ''}`];
     if (position === 'middle') {
-      const firstBoxStatus = this.getStatus(this.firstBoxMark, parent);
-      const lastBoxStatus = this.getStatus(this.lastBoxMark, parent);
+      const firstBoxStatus = this.getStatus(firstPanelPos, parent);
+      const lastBoxStatus = this.getStatus(lastPanelPos, parent);
       if (firstBoxStatus === 'popshow' || firstBoxStatus === 'pophide') {
         classNameArr.push(`star-${boxType}-transition-top-none`);
       }
