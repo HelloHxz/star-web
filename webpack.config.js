@@ -13,8 +13,6 @@ module.exports = function start(env) {
   const action = env.action || 'start';
   const routerType = env.routertype || 'hash'; // hash || history
   const isBuild = action === 'build';
-  // DefinePlugin的一种开发变量注入的替代方案 编译时不同环境加在不同代码文件的方案
-  const extensions =  [`.${nodeEnv}.js`, `.${routerType}.js`, '.js'];
 
   let plugins = [new HtmlWebpackPlugin({
     filename: `index.html`,
@@ -62,7 +60,8 @@ module.exports = function start(env) {
       historyApiFallback: true,
     },
     resolve: {
-      extensions: extensions,
+      // DefinePlugin的一种开发变量注入的替代方案 编译时不同环境加在不同代码文件的方案
+      extensions: [`.${nodeEnv}.js`, `.${routerType}.js`, '.js'],
       alias: {
         "star-web": path.resolve(__dirname, './'),
       },

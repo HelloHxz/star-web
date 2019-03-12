@@ -18,11 +18,9 @@ export default class BackLayer extends React.Component {
     if (status === 'hide' && this.preStatus !== 'show') {
       return null;
     }
-    const classNameArr = ['star-bk-layer'];
     this.preStatus = status;
     const positionMode = ComponentUtil.getConfig('position', this.props);
-    classNameArr.push(`star-bk-layer-${positionMode}`);
-    classNameArr.push(`star-bk-layer-${status}`);
+    const classNameArr = ['star-bk-layer', `star-bk-layer-${positionMode} star-bk-layer-${status}`];
     const p = {};
     if (style) {
       p.style = style;

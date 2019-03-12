@@ -4,7 +4,7 @@ export default class RouteUtilCommon {
   registerEngine = ({ engine, config }) => {
     this.engine = engine;
     this.routeConfig = config;
-    this.routeSeedKey = '__r';
+    this.routeSeedKey = config.routeSeedKey || '__r';
     const initQuery = this.getQueryFromUrl();
     this.routeSeed = this._getRouteSeed(initQuery);
   }
