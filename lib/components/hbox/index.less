@@ -1,0 +1,73 @@
+.star-hbox{
+    height: 100%; 
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+.star-hbox-panel{
+   position: absolute;
+   height:100%;
+   top:0;
+   transition: left .3s ease, right .3s ease, width .3s ease;
+   backface-visibility: hidden;
+}
+.star-hbox-bk{
+   z-index: 2;
+}
+
+.star-hbox-transition-top-none{
+   transition: right .3s ease, width .3s ease;
+}
+.star-hbox-transition-bottom-none{
+   transition: left .3s ease, width .3s ease;
+}
+
+.star-hbox-panel-left-popshow{
+   z-index: 3;
+   animation:leftpopshow .3s ease;
+   transform: translateX(0);
+}
+
+@keyframes leftpopshow
+{
+   from {transform: translateX(-100%);}
+   to {transform: translateX(0);}
+}
+
+.star-hbox-panel-left-pophide{
+   z-index: 3;
+   transform: translateX(-100%);
+   animation:leftpophide .3s ease;
+}
+
+@keyframes leftpophide
+{
+   from {transform: translateX(0);}
+   to {transform: translateX(-100%);}
+}
+
+.star-hbox-panel-right-popshow{
+   z-index: 3;
+   animation:rightpopshow .3s ease;
+   transform: translateX(0);
+}
+
+@keyframes rightpopshow
+{
+   from {transform: translateX(100%);}
+   to {transform: translateX(0);}
+}
+.star-hbox-panel-right-pophide{
+   z-index: 3;
+   transform: translateX(100%);
+   animation:rightpophide .3s ease;
+}
+
+@keyframes rightpophide
+{
+   from {transform: translateX(0);}
+   to {transform: translateX(100%);}
+}
+

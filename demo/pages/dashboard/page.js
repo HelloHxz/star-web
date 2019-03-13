@@ -106,7 +106,7 @@ class DashBoard extends React.Component {
         </Vbox.Panel>
         <Vbox.Panel>
           <Hbox>
-            <Hbox.Panel style={{ width: 130, backgroundColor: '#f2f3f4' }}>
+            <Hbox.Panel style={{ width: 170, backgroundColor: '#f2f3f4' }}>
               <button type="button" onClick={this.go.bind(this)}>dashboard/other</button>
               <Treebase data={data} />
             </Hbox.Panel>

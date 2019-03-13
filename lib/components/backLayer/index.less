@@ -1,0 +1,42 @@
+@import '~star-web/theme/index.less';
+
+.@{theme-namespace}{
+.xz-bk-layer-fixed{
+    position: fixed;
+}
+.xz-bk-layer-absolute{
+    position: absolute;
+}
+.xz-bk-layer{
+    @o:@bk_layer_opacity*100;
+    width: 100%;
+    top:0;
+    left: 0;
+    height: 100%;
+    background-color:@bk_layer_background;
+    filter: alpha(opacity=@o);
+    opacity: @bk_layer_opacity;
+    visibility: visible;
+}
+
+.xz-bk-layer-hide{
+    animation:xzbklayerhide .4s ease; 
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes xzbklayerhide{
+    from {opacity:@bk_layer_opacity; visibility: visible; }
+    to {opacity:0; visibility: hidden; }
+}
+
+.xz-bk-layer-show{
+    animation:xzbklayershow .4s ease; 
+    opacity: @bk_layer_opacity;
+}
+
+@keyframes xzbklayershow{
+    from {opacity:0; visibility: hidden;}
+    to {opacity:@bk_layer_opacity; visibility: visible;}
+}
+}

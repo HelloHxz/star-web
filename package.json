@@ -11,17 +11,14 @@
     "build": "webpack -p --progress --config  webpack.config.js --env.action=build --env.env=development",
     "build-uat": "webpack -p --progress --config  webpack.config.js --env.action=build --env.env=uat",
     "build-pro": "webpack -p --progress --config  webpack.config.js --env.action=build --env.env=production",
-
-    
     "start-history": "node ./scripts/start.js --env.env=development --env.routertype=history",
     "start-history-uat": "node ./scripts/start.js --env.env=uat --env.routertype=history",
     "start-history-pro": "node ./scripts/start.js --env.env=production --env.routertype=history",
-    
     "build-history": "webpack -p --progress --config  webpack.config.js --env.action=build --env.env=development --env.routertype=history",
     "build-history-uat": "webpack -p --progress --config  webpack.config.js --env.action=build --env.env=uat --env.routertype=history",
     "build-history-pro": "webpack -p --progress --config  webpack.config.js --env.action=build --env.env=production --env.routertype=history",
-
     "lint": "eslint --ext .js src",
+    "build-lib": "node ./scripts/buildLib.js",
     "precommit": "npm run lint",
     "fix": "eslint --fix --ext .js src"
   },
@@ -32,6 +29,7 @@
     "react-dom": "^16.8.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.3",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
