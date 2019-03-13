@@ -1,7 +1,10 @@
 /* eslint-disable */
 const shell = require('shelljs');
 const utils = require('./utils');
+const createTheme = require('./theme');
 
+
+createTheme();
 
 utils.rmdirSync('./lib');
 
