@@ -17,7 +17,9 @@ class ListPage extends React.Component {
   }
 
   render() {
-    return (<div>List</div>);
+    return (
+      <div>List</div>
+    );
   }
 }
 

@@ -108,7 +108,7 @@ class DashBoard extends React.Component {
           <Hbox>
             <Hbox.Panel style={{ width: 170, backgroundColor: '#f2f3f4' }}>
               <button type="button" onClick={this.go.bind(this)}>dashboard/other</button>
-              <Treebase data={data} />
+              <Treebase firstLevelOffset={8} offset={15} data={data} />
             </Hbox.Panel>
             <Hbox.Panel>
               <Route {...this.props} />

@@ -1,15 +1,23 @@
 @import '~star-web/theme/index.less';
 @import './theme/common.less';
 
-#star-root-id{
-  height: 100%;
-  position: relative;
-  width:100%;
+
+
+*{
+	margin:0;
+	padding:0;
+	flex-shrink: 0;
+	box-sizing: border-box;
+}
+
+input,textarea{
+  outline:none
 }
 
 html,body{
   margin:0;
   padding: 0;
   width:100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   height: 100%;
 }

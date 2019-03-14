@@ -1,6 +1,6 @@
 
 
-.@{theme-namespace}{
+.@{theme_namespace}{
 .xz-bk-layer-fixed{
     position: fixed;
 }
@@ -42,7 +42,7 @@
 }
  
 
-.@{theme-namespace}{
+.@{theme_namespace}{
   .star-btn{
     background-color: @theme_color;
   }
@@ -129,15 +129,21 @@
 
  
 
-.@{theme-namespace}{
+.@{theme_namespace}{
   .star-input{
     background-color: @theme_color;
   }
   
 } 
 
+.star-treebase-list {
+  position: relative;
+  height: auto;
+  overflow: hidden;   
+  transition: height 0.2s ease;
+}
 
-.@{theme-namespace}{
+.@{theme_namespace}{
   ul,li {
     list-style: none;
     padding: 0;

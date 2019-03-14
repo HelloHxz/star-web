@@ -24,7 +24,7 @@ const Themes = [
 
 export default class ThemeBlocks extends React.Component {
   themeChange = (data) => {
-    const rootWrapper = document.getElementById('star-root-id');
+    const rootWrapper = document.body;
     if (data.Theme) {
       data.Theme().then(() => {
         rootWrapper.className = data.namespace;

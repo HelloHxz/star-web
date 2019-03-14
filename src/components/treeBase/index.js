@@ -5,7 +5,7 @@ import './index.less';
 class TreeBase extends React.Component {
   render() {
     return (
-      <div>
+      <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
         <SectionList {...this.props} level={0} />
       </div>
     );
