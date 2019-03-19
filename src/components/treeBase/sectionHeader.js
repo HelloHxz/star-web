@@ -1,26 +1,29 @@
 import React from 'react';
 
 class TreeItem extends React.Component {
-  clickMethod = () => {
+  clickMethod = (e) => {
     const { onClick } = this.props;
-    onClick();
+    onClick(e);
   }
 
   render() {
     const {
-      data, onClick, offset, level, firstLevelOffset,
+      data, onClick, offset, level, firstLevelOffset, itemClass,
     } = this.props;
     let _offset = offset;
-    if (Number.isNaN(_offset)) {
+    const p = {};
+    if (Number.isNaN(Number(_offset))) {
       _offset = 20;
     }
-    const p = {};
     let paddingLeft = level * _offset;
     if (onClick) {
       p.onClick = this.clickMethod.bind(this);
     }
+    if (typeof (itemClass) === 'function') {
+      p.className = itemClass({ item: this }) || '';
+    }
     p.style = {};
-    if (!Number.isNaN(firstLevelOffset)) {
+    if (!(Number.isNaN(Number(firstLevelOffset)))) {
       if (level === 1) {
         paddingLeft = firstLevelOffset;
       } else {

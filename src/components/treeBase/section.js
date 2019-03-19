@@ -17,26 +17,47 @@ class TreeItem extends React.Component {
     });
   }
 
+  onItemClick = (e) => {
+    const {
+      onItemClick, data,
+    } = this.props;
+    if (onItemClick) {
+      onItemClick({
+        item: this,
+        data,
+        e,
+      });
+    }
+  }
+
   render() {
     const {
-      data, level, offset, firstLevelOffset,
+      data, level, offset, firstLevelOffset, itemClass, selectedKey, onItemClick,
     } = this.props;
     const { open } = this.state;
+    const commonProps = {
+      offset,
+      itemClass,
+      level,
+      selectedKey,
+      onItemClick,
+      firstLevelOffset,
+    };
+    const sectionHeaderProps = {
+      ...commonProps,
+      data,
+    };
+
     if (data.children && data.children.length > 0) {
       return (
         <Fragment>
           <SectionHeader
-            offset={offset}
-            firstLevelOffset={firstLevelOffset}
-            level={level}
-            data={data}
+            {...sectionHeaderProps}
             onClick={this.sectionHeaderClick.bind(this)}
           />
           <SectionList
-            firstLevelOffset={firstLevelOffset}
+            {...commonProps}
             open={open}
-            offset={offset}
-            level={level}
             data={data.children}
           />
         </Fragment>
@@ -44,10 +65,8 @@ class TreeItem extends React.Component {
     }
     return (
       <SectionHeader
-        firstLevelOffset={firstLevelOffset}
-        offset={offset}
-        level={level}
-        data={data}
+        {...sectionHeaderProps}
+        onClick={this.onItemClick.bind(this)}
       />
     );
   }

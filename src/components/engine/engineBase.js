@@ -66,6 +66,15 @@ export default class BaseEngin extends React.Component {
       path: RouteUtil.getPathFromUrl(),
     });
     this.fromURLInfo = toURLInfo;
+    // eslint-disable-next-line
+    for (const key in RouteUtil._urlChangeEvents) {
+      const cb = RouteUtil._urlChangeEvents[key];
+      try {
+        cb(toURLInfo);
+      } catch (e) {
+        RouteUtil.removeUrlChangeListener(key);
+      }
+    }
   }
 
   render() {

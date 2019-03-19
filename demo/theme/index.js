@@ -20,6 +20,12 @@ const Themes = [
     Theme: () => { return import('./theme_b.less'); },
     color: '#f25d8e',
   },
+  {
+    namespace: 'theme_c',
+    title: '黑',
+    Theme: () => { return import('./theme_c.less'); },
+    color: '#001529',
+  },
 ];
 
 export default class ThemeBlocks extends React.Component {

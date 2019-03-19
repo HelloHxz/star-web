@@ -3,10 +3,23 @@ import ObjectUtils from '../../utils/objectUtil';
 export default class RouteUtilCommon {
   registerEngine = ({ engine, config }) => {
     this.engine = engine;
+    this._urlChangeidSeed = 0;
+    this._urlChangeEvents = {};
     this.routeConfig = config;
     this.routeSeedKey = config.routeSeedKey || '__r';
     const initQuery = this.getQueryFromUrl();
     this.routeSeed = this._getRouteSeed(initQuery);
+  }
+
+  addUrlChangeListener = (cb) => {
+    this._urlChangeidSeed += 1;
+    const id = this._urlChangeidSeed.toString();
+    this._urlChangeEvents[id] = cb;
+    return id;
+  }
+
+  removeUrlChangeListener = (id) => {
+    delete this._urlChangeEvents[id];
   }
 
   _getRouteSeed = (query) => {

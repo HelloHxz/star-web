@@ -25,6 +25,7 @@ class TreeGroup extends React.Component {
     const openState = !!isOpen;
     if (!openState) {
       // 关闭的时候 从auto变成固定的高度 才有动画
+      this.listOuterWrapper.style.overflow = 'hidden';
       this.listOuterWrapper.style.height = `${this.listInnerWrapper.offsetHeight}px`;
     }
     this.timeid = setTimeout(() => {
@@ -37,6 +38,7 @@ class TreeGroup extends React.Component {
           this.timeid2 = setTimeout(() => {
             this.timeid2 = null;
             this.listOuterWrapper.style.height = 'auto';
+            this.listOuterWrapper.style.overflow = 'visible';
           }, 210);
         } else {
           this.listOuterWrapper.style.height = '0px';
@@ -55,7 +57,7 @@ class TreeGroup extends React.Component {
 
   render() {
     const {
-      data, level, offset, firstLevelOffset,
+      data, level, offset, firstLevelOffset, itemClass, selectedKey, onItemClick,
     } = this.props;
     const { open } = this.state;
     const classArr = ['star-treebase-list'];
@@ -66,9 +68,11 @@ class TreeGroup extends React.Component {
       if (open) {
         if (this.listInnerWrapper) {
           outerStyle.height = this.listInnerWrapper.offsetHeight;
+          outerStyle.overflow = 'hidden';
         }
       } else {
         outerStyle.height = 0;
+        outerStyle.overflow = 'hidden';
       }
     }
     for (let i = 0, j = realData.length; i < j; i += 1) {
@@ -77,6 +81,9 @@ class TreeGroup extends React.Component {
         <Section
           firstLevelOffset={firstLevelOffset}
           offset={offset}
+          onItemClick={onItemClick}
+          selectedKey={selectedKey}
+          itemClass={itemClass}
           level={level + 1}
           data={itemData}
           key={itemData.key || i}

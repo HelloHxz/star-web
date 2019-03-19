@@ -1,13 +1,13 @@
 @import '~star-web/theme/index.less';
 
-.star-treebase-list {
-  position: relative;
-  height: auto;
-  overflow: hidden;   
-  transition: height 0.2s ease;
-}
-
 .@{theme_namespace}{
+  .star-treebase-list {
+    position: relative;
+    height: auto;
+    transition: height .2s ease;
+    white-space: nowrap;
+  }
+
   ul,li {
     list-style: none;
     padding: 0;
