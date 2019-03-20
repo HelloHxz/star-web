@@ -134,7 +134,7 @@ class DashBoard extends React.Component {
           <Hbox>
             <Hbox.Panel style={{ width: 170, borderRight: '1px solid #eee' }}>
               <Menu
-                selectedKey={menuSelectedKey}
+                selectedKeys={menuSelectedKey}
                 onItemClick={this.onMenuItemClick.bind(this)}
                 offset={15}
                 data={menudata}

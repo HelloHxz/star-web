@@ -10,7 +10,12 @@ class TreeItem extends React.Component {
     const {
       data, onClick, level, root,
     } = this.props;
-    const { firstLevelOffset, itemClass, offset } = root.props;
+    const {
+      firstLevelOffset,
+      itemClass,
+      offset,
+      beforeRenderItem,
+    } = root.props;
     let _offset = offset;
     const p = {};
     if (Number.isNaN(Number(_offset))) {
@@ -32,6 +37,13 @@ class TreeItem extends React.Component {
       }
     }
     p.style.paddingLeft = `${paddingLeft}px`;
+    if (beforeRenderItem) {
+      beforeRenderItem({
+        props: p,
+        root,
+        item: this,
+      });
+    }
     return (
       <div {...p}>
         { data.label }
