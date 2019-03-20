@@ -1,20 +1,9 @@
 import React from 'react';
 import TreeBase from '../treeBase';
-import RouteUtil from '../route/routeUtil/routeUtil';
+// import RouteUtil from '../route/routeUtil/routeUtil';
 import './index.less';
 
 class Menu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.urlChangeID = RouteUtil.addUrlChangeListener((params) => {
-      console.log(params);
-    });
-  }
-
-  componentWillUnmount = () => {
-    RouteUtil.removeUrlChangeListener(this.urlChangeID);
-  }
-
   itemClass = (params) => {
     const { item } = params;
     const { data } = item.props;

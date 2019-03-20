@@ -19,7 +19,7 @@ const menudata = [
     label: 'Router 路由',
     icon: 'iconfont icon-printer',
     children: [
-      { label: 'Hash & History 路由', key: 'dashboard/router' },
+      { label: 'Hash & History 路由', key: 'dashboard/route' },
       { label: 'GlobalPage 全局页面', key: 'dashboard/globalpage' },
     ],
   },
@@ -90,6 +90,30 @@ const menudata = [
 ];
 
 class DashBoard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuSelectedKey: this.getSelectedKeyFromURL(Utils.route.getUrlInfo()),
+    };
+    this.urlChangeID = Utils.route.addUrlChangeListener((params) => {
+      this._triggleUrlChange(params);
+    });
+  }
+
+  getSelectedKeyFromURL = (urlInfo) => {
+    return urlInfo.pagename;
+  }
+
+  _triggleUrlChange = (params) => {
+    this.setState({
+      menuSelectedKey: this.getSelectedKeyFromURL(params),
+    });
+  }
+
+  componentWillUnmount = () => {
+    Utils.route.removeUrlChangeListener(this.urlChangeID);
+  }
+
   go = () => {
     Utils.route.push('dashboard/other', { id: 12, url: 'http://www.xx.com/23/12?params=参数&p=1', name: '参数?#@' });
   }
@@ -100,6 +124,7 @@ class DashBoard extends React.Component {
   }
 
   render() {
+    const { menuSelectedKey } = this.state;
     return (
       <Vbox>
         <Vbox.Panel style={{ height: 50, borderBottom: '1px solid #eee' }}>
@@ -109,7 +134,12 @@ class DashBoard extends React.Component {
         <Vbox.Panel>
           <Hbox>
             <Hbox.Panel style={{ width: 170, borderRight: '1px solid #eee' }}>
-              <Menu onItemClick={this.onMenuItemClick.bind(this)} offset={15} data={menudata} />
+              <Menu
+                selectedKey={menuSelectedKey}
+                onItemClick={this.onMenuItemClick.bind(this)}
+                offset={15}
+                data={menudata}
+              />
             </Hbox.Panel>
             <Hbox.Panel>
               <Route {...this.props} />

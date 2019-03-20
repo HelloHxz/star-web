@@ -5,13 +5,15 @@ import React from 'react';
 import './index.less';
 
 Engine({
-  root: 'dashboard/list',
+  root: 'dashboard/about',
   pages: {
     '/': require('./pages/global/page.js').default,
     dashboard: require('./pages/dashboard/page.js').default,
-    list: require('./pages/list/page.js').default,
-    other: require('./pages/other/page.js').default,
-    page1: require('./pages/page1/page.js').default,
+    about: require('./pages/about/page.js').default,
+    quickstart: require('./pages/quickstart/page.js').default,
+    route: require('./pages/route/route/page.js').default,
+    globalpage: require('./pages/route/globalpage/page.js').default,
+    grid: require('./pages/layoutComponents/grid/page.js').default,
   },
   render404Page: () => {
     return (<div>404！没有找到相关页面</div>);

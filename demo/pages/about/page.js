@@ -2,12 +2,12 @@ import React from 'react';
 import { Utils } from 'star-web';
 import './index.less';
 
-class ListPage extends React.Component {
+class AboutPage extends React.Component {
   componentDidMount = () => {
     console.log('>>>>>>>>>>>>>>>>>>>');
     console.log(Utils.route.match());
     Utils.route.setRouteLeaveHook(this, (params) => {
-      const re = window.confirm('你确定要离开List页面吗？');
+      const re = window.confirm('你确定要离开About页面吗？');
       if (re) {
         params.ok(); // params.cancel
       } else {
@@ -18,9 +18,9 @@ class ListPage extends React.Component {
 
   render() {
     return (
-      <div>List</div>
+      <div>AboutPage</div>
     );
   }
 }
 
-export default ListPage;
+export default AboutPage;
