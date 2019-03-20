@@ -129,7 +129,6 @@ class DashBoard extends React.Component {
       <Vbox>
         <Vbox.Panel style={{ height: 50, borderBottom: '1px solid #eee' }}>
           <ThemeBlocks />
-          <button type="button" onClick={this.go.bind(this)}>dashboard/other</button>
         </Vbox.Panel>
         <Vbox.Panel>
           <Hbox>

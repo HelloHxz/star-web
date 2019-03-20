@@ -15,8 +15,14 @@ Engine({
     globalpage: require('./pages/route/globalpage/page.js').default,
     grid: require('./pages/layoutComponents/grid/page.js').default,
   },
-  render404Page: () => {
-    return (<div>404！没有找到相关页面</div>);
+  render404Page: (params) => {
+    return (
+      <div>
+        <span>没有找到</span>
+        {params.pageName}
+        <span>页面</span>
+      </div>
+    );
   },
 }, document.getElementById('star-root-id'));
 

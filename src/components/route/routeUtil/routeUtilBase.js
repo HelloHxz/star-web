@@ -46,10 +46,11 @@ export default class RouteUtilCommon {
       };
     */
     const pathArr = path.split('/');
-    const curPageName = pathArr.shift();
+    const pageName = pathArr.shift();
     return {
-      PageClass: this.routeConfig.pages[curPageName] || NotFoundPage,
+      PageClass: this.routeConfig.pages[pageName] || NotFoundPage,
       remainPath: pathArr.join('/'),
+      pageName,
     };
   }
 

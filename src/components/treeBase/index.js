@@ -16,7 +16,7 @@ class TreeBase extends React.Component {
           width: '100%', height: '100%', overflow: 'auto', display: 'inline-block',
         }}
       >
-        <SectionList {...this.props} level={0} />
+        <SectionList {...this.props} root={this} level={0} />
       </div>
     );
   }

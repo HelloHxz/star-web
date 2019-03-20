@@ -11,12 +11,14 @@ export default class Route extends React.Component {
 
   render() {
     const { path } = this.props;
-    const { remainPath, PageClass } = RouteUtil._parsePath(path);
+    const { remainPath, PageClass, pageName } = RouteUtil._parsePath(path);
     return (
       <PageClass
         routerWrapper={this}
         ref={(ins) => { this.routePageInit(ins); }}
         path={remainPath}
+        pageName={pageName}
+        routeUtil={RouteUtil}
         urlInfo={RouteUtil.getUrlInfo()}
       />
     );

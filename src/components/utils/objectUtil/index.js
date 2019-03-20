@@ -18,4 +18,12 @@ export default class ObjectUtil {
       return false;
     }
   }
+
+  static isArray = (obj) => {
+    if (typeof Array.isArray === 'function') {
+      return Array.isArray(obj);
+    } else {
+      return Object.prototype.toString.call(obj) === '[object Array]';
+    }
+  }
 }

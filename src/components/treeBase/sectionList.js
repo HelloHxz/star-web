@@ -57,7 +57,7 @@ class TreeGroup extends React.Component {
 
   render() {
     const {
-      data, level, offset, firstLevelOffset, itemClass, selectedKey, onItemClick,
+      data, level, root,
     } = this.props;
     const { open } = this.state;
     const classArr = ['star-treebase-list'];
@@ -79,11 +79,7 @@ class TreeGroup extends React.Component {
       const itemData = realData[i];
       lists.push(
         <Section
-          firstLevelOffset={firstLevelOffset}
-          offset={offset}
-          onItemClick={onItemClick}
-          selectedKey={selectedKey}
-          itemClass={itemClass}
+          root={root}
           level={level + 1}
           data={itemData}
           key={itemData.key || i}

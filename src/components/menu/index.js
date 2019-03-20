@@ -13,11 +13,16 @@ class Menu extends React.Component {
     return 'star-menu-item';
   }
 
+  selectedClass = () => {
+
+  }
+
   render = () => {
     return (
       <TreeBase
         className="star-menu"
         itemClass={this.itemClass.bind(this)}
+        selectedClass={this.selectedClass.bind(this)}
         {...this.props}
       />
     );

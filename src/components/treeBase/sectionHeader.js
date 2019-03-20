@@ -8,8 +8,9 @@ class TreeItem extends React.Component {
 
   render() {
     const {
-      data, onClick, offset, level, firstLevelOffset, itemClass,
+      data, onClick, level, root,
     } = this.props;
+    const { firstLevelOffset, itemClass, offset } = root.props;
     let _offset = offset;
     const p = {};
     if (Number.isNaN(Number(_offset))) {

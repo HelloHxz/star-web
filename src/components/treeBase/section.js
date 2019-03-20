@@ -19,8 +19,9 @@ class TreeItem extends React.Component {
 
   onItemClick = (e) => {
     const {
-      onItemClick, data,
+      root, data,
     } = this.props;
+    const { onItemClick } = root.props;
     if (onItemClick) {
       onItemClick({
         item: this,
@@ -32,16 +33,12 @@ class TreeItem extends React.Component {
 
   render() {
     const {
-      data, level, offset, firstLevelOffset, itemClass, selectedKey, onItemClick,
+      data, level, root,
     } = this.props;
     const { open } = this.state;
     const commonProps = {
-      offset,
-      itemClass,
       level,
-      selectedKey,
-      onItemClick,
-      firstLevelOffset,
+      root,
     };
     const sectionHeaderProps = {
       ...commonProps,
