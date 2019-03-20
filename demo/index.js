@@ -1,6 +1,7 @@
 import {
   Engine,
 } from 'star-web';
+import React from 'react';
 import './index.less';
 
 Engine({
@@ -11,6 +12,9 @@ Engine({
     list: require('./pages/list/page.js').default,
     other: require('./pages/other/page.js').default,
     page1: require('./pages/page1/page.js').default,
+  },
+  render404Page: () => {
+    return (<div>404！没有找到相关页面</div>);
   },
 }, document.getElementById('star-root-id'));
 

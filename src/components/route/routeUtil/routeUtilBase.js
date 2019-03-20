@@ -1,4 +1,5 @@
 import ObjectUtils from '../../utils/objectUtil';
+import NotFoundPage from './NotFoundPage';
 
 export default class RouteUtilCommon {
   registerEngine = ({ engine, config }) => {
@@ -47,7 +48,7 @@ export default class RouteUtilCommon {
     const pathArr = path.split('/');
     const curPageName = pathArr.shift();
     return {
-      PageClass: this.routeConfig.pages[curPageName],
+      PageClass: this.routeConfig.pages[curPageName] || NotFoundPage,
       remainPath: pathArr.join('/'),
     };
   }

@@ -4,7 +4,7 @@ import {
 } from 'star-web';
 import ThemeBlocks from '../../theme';
 
-const data = [
+const menudata = [
   {
     icon: 'iconfont icon-folder-open',
     label: '关于',
@@ -95,7 +95,8 @@ class DashBoard extends React.Component {
   }
 
   onMenuItemClick = (params) => {
-    console.log(params);
+    const { data } = params;
+    Utils.route.push(data.key);
   }
 
   render() {
@@ -108,7 +109,7 @@ class DashBoard extends React.Component {
         <Vbox.Panel>
           <Hbox>
             <Hbox.Panel style={{ width: 170, borderRight: '1px solid #eee' }}>
-              <Menu onItemClick={this.onMenuItemClick.bind(this)} offset={15} data={data} />
+              <Menu onItemClick={this.onMenuItemClick.bind(this)} offset={15} data={menudata} />
             </Hbox.Panel>
             <Hbox.Panel>
               <Route {...this.props} />
